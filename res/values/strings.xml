@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">FitSup</string>
+    <string name="no_workouts">You have no Workouts.</string>
+    <string name="menu_insert">Add Workout</string>
+
+</resources>
