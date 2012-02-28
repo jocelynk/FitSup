@@ -20,7 +20,7 @@ public final class R {
         public static final int text1=0x7f050003;
     }
     public static final class layout {
-        public static final int workouts_edit=0x7f030000;
+        public static final int workout_edit=0x7f030000;
         public static final int workouts_index=0x7f030001;
         public static final int workouts_row=0x7f030002;
     }

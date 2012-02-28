@@ -23,12 +23,9 @@ everything related to activity, so if passing contexts around,
 then can get stuck in a situation where a certain object is 
 holding on to an activity and even if the activity gets 
 destroyed and even if it gets destroyed will hold onto 
-it and then cause memory leak
+it and then cause memory leak */
 
-*
-*
-*
-* private static final int ACTIVITY_CREATE=0;
+/*private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
 
     private static final int INSERT_ID = Menu.FIRST;
@@ -60,6 +57,20 @@ public class WorkoutUI extends ListActivity {
         fillData();
         registerForContextMenu(getListView());
     }
+    
+    private void fillData() {
+        // Get all of the notes from the database and create the item list
+    	mWorkoutsCursor = mDbAdapter.fetchAllWorkouts();
+        startManagingCursor(mWorkoutsCursor);
+
+        String[] from = new String[] { WorkoutRoutineTable.COLUMN_NAME };
+        int[] to = new int[] { R.id.text1 };
+        
+        // Now create an array adapter and set it to display using our row
+        SimpleCursorAdapter workouts = new SimpleCursorAdapter(this, R.layout.workouts_row, mWorkoutsCursor, from, to);
+        setListAdapter(workouts);
+    }
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,7 +110,7 @@ public class WorkoutUI extends ListActivity {
     }
     
     @Override
-    public void onListItemClick(ListView l, View v, int position, int id) {
+    protected void onListItemClick(ListView l, View v, int position, long id) {
     	super.onListItemClick(l, v, position, id);
     	Cursor c = mWorkoutsCursor;
     	c.moveToPosition(position);
@@ -142,19 +153,7 @@ public class WorkoutUI extends ListActivity {
     	//fillData();
     }
     
-    private void fillData() {
-        // Get all of the notes from the database and create the item list
-        Cursor c = mDbAdapter.fetchAllWorkouts();
-        startManagingCursor(c);
-
-        String[] from = new String[] { WorkoutRoutineTable.COLUMN_NAME };
-        int[] to = new int[] { R.id.text1 };
-        
-        // Now create an array adapter and set it to display using our row
-        SimpleCursorAdapter notes = new SimpleCursorAdapter(this, R.layout.workouts_row, c, from, to);
-        setListAdapter(notes);
-    }
-    
+   
     @Override
     public void onDestroy() {
 
