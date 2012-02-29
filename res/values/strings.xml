@@ -3,7 +3,11 @@
 
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">FitSup</string>
-    <string name="no_workouts">You have no Workouts.</string>
-    <string name="menu_insert">Add Workout</string>
-
+    <string name="no_workouts">You have no Workout Routines.</string>
+    <string name="menu_insert">Add Workout Routine</string>
+    <string name="menu_delete">Delete Workout Routine</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="confirm">Confirm</string>
+    <string name="edit_workout">Edit Workout Routine</string>
 </resources>
