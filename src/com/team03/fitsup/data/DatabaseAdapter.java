@@ -36,9 +36,11 @@ public class DatabaseAdapter {
 		return mDb.insert(WorkoutRoutineTable.TABLE_WORKOUTROUTINE, null, initialValues);
 	}
 	
-	public long deleteWorkout(long rowID) {
-		return mDb.delete(WorkoutRoutineTable.TABLE_WORKOUTROUTINE, WorkoutRoutineTable.COLUMN_ID + " = " + rowID, null);
+	public boolean deleteWorkout(long rowID) {
+		return mDb.delete(WorkoutRoutineTable.TABLE_WORKOUTROUTINE, WorkoutRoutineTable.COLUMN_ID + " = " + rowID, null) >0;
 	}
+	
+
 	
 	public Cursor fetchAllWorkouts() {
 

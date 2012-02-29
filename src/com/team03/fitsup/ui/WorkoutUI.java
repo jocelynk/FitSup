@@ -17,7 +17,7 @@ import com.team03.fitsup.R;
 import com.team03.fitsup.data.DatabaseAdapter;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 /*when i do stuff with the GUI, then use getContext(),
-b/c UI is specific to single ACtivity, screen, so give it
+b/c UI is specific to single Activity, screen, so give it
 Application context would crash, but context basically holds 
 everything related to activity, so if passing contexts around, 
 then can get stuck in a situation where a certain object is 
@@ -37,7 +37,7 @@ public class WorkoutUI extends ListActivity {
 	    private static final int DELETE_ID = Menu.FIRST + 1;
 
 	    private DatabaseAdapter mDbAdapter; 
-	    private Cursor mWorkoutsCursor;
+	    //private Cursor workoutsCursor;
 
     /** Called when the activity is first created. */
     @Override
@@ -47,19 +47,19 @@ public class WorkoutUI extends ListActivity {
         mDbAdapter = new DatabaseAdapter(getApplicationContext());
         mDbAdapter.open();
         fillData();
-        //getContext
+        registerForContextMenu(getListView());
     }
 
     private void fillData() {
         // Get all of the notes from the database and create the item list
-    	mWorkoutsCursor = mDbAdapter.fetchAllWorkouts();
-        startManagingCursor(mWorkoutsCursor);
+    	Cursor workoutsCursor = mDbAdapter.fetchAllWorkouts();
+        startManagingCursor(workoutsCursor);
 
         String[] from = new String[] { WorkoutRoutineTable.COLUMN_NAME };
         int[] to = new int[] { R.id.text1 };
         
         // Now create an array adapter and set it to display using our row
-        SimpleCursorAdapter workouts = new SimpleCursorAdapter(this, R.layout.workouts_row, mWorkoutsCursor, from, to);
+        SimpleCursorAdapter workouts = new SimpleCursorAdapter(this, R.layout.workouts_row, workoutsCursor, from, to);
         setListAdapter(workouts);
     }
     
@@ -97,7 +97,6 @@ public class WorkoutUI extends ListActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, DELETE_ID, 0, R.string.menu_delete);
     }
-    
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -136,6 +135,14 @@ public class WorkoutUI extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        Intent i = new Intent(this, WorkoutRoutineEdit.class);
+        i.putExtra(WorkoutRoutineTable.COLUMN_ID, id);
+        startActivityForResult(i, ACTIVITY_EDIT);
+    }
+    
+    /*@Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
         Cursor c = mWorkoutsCursor;
         c.moveToPosition(position);
         Intent i = new Intent(this, WorkoutRoutineEdit.class);
@@ -145,9 +152,17 @@ public class WorkoutUI extends ListActivity {
         i.putExtra(WorkoutRoutineTable.COLUMN_DESCRIPTION, c.getString(
                 c.getColumnIndexOrThrow(WorkoutRoutineTable.COLUMN_DESCRIPTION)));
         startActivityForResult(i, ACTIVITY_EDIT);
-    }
+    }*/
+    
     
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        fillData();
+    }
+    
+    
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         Bundle extras = intent.getExtras();
@@ -168,7 +183,7 @@ public class WorkoutUI extends ListActivity {
                 fillData();
                 break;
         }
-    }
+    }*/
     
     
 }
