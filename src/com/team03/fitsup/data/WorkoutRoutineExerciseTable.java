@@ -18,9 +18,8 @@ public class WorkoutRoutineExerciseTable {
 		+ COLUMN_ID + " integer primary key autoincrement, "
 		+ COLUMN_WORKOUT_ID + " integer, FOREIGN KEY " + "(" + COLUMN_WORKOUT_ID + ") REFERENCES " 
 		+ WorkoutRoutineTable.TABLE_WORKOUTROUTINE 
-		+ "("+ WorkoutRoutineTable.COLUMN_ID + ") "
-		+ COLUMN_EXERCISE_ID
-		+ "integer, FOREIGN KEY " + "(" + COLUMN_EXERCISE_ID + ") REFERENCES " 
+		+ "("+ WorkoutRoutineTable.COLUMN_ID + "), "
+		+ COLUMN_EXERCISE_ID + " integer, FOREIGN KEY " + "(" + COLUMN_EXERCISE_ID + ") REFERENCES " 
 		+ ExerciseTable.TABLE_EXERCISE 
 		+ "("+ ExerciseTable.COLUMN_ID + "));";
 	
