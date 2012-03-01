@@ -1,20 +1,19 @@
 package com.team03.fitsup.ui;
 
+import android.app.Activity;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.DatabaseAdapter;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 
-import android.app.Activity;
-import android.database.Cursor;
-import android.os.Bundle;
-//import android.view.View;
-//import android.widget.Button;
-import android.widget.EditText;
-
 public class WorkoutRoutineView extends Activity {
 	private DatabaseAdapter mDbAdapter;
-    private EditText mNameText;
-    private EditText mDescriptionText;
+    private TextView mNameText;
+    private TextView mDescriptionText;
     private Long mRowId;
 
     @Override
@@ -26,8 +25,8 @@ public class WorkoutRoutineView extends Activity {
 
     	setContentView(R.layout.workouts_view_tab);
 
-    	mNameText = (EditText) findViewById(R.id.name);
-    	mDescriptionText = (EditText) findViewById(R.id.description);
+    	mNameText = (TextView) findViewById(R.id.name);
+    	mDescriptionText = (TextView) findViewById(R.id.description);
 
     	//Button confirmButton = (Button) findViewById(R.id.confirm);
 

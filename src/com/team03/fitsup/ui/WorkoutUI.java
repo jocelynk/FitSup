@@ -1,17 +1,18 @@
 package com.team03.fitsup.ui;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.DatabaseAdapter;
@@ -129,7 +130,7 @@ public class WorkoutUI extends ListActivity {
     
     public void createWorkout() {
     	Intent i = new Intent(this, WorkoutRoutineEdit.class);
-        startActivityForResult(i, ACTIVITY_CREATE);
+    	startActivityForResult(i, ACTIVITY_CREATE);
     }
     
     @Override
