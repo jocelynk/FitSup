@@ -18,7 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.WorkoutTabWidget" android:label="@string/app_name"
+          android:theme="@android:style/Theme.NoTitleBar" />
+        <activity android:name=".ui.TestClass" />
+        <activity android:name=".ui.TestClass2" />
         <activity android:name=".ui.WorkoutRoutineEdit" />
+        <activity android:name=".ui.WorkoutRoutineView" />
     </application>
 
 </manifest>
