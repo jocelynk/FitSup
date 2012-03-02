@@ -136,7 +136,7 @@ public class WorkoutUI extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent i = new Intent(this, WorkoutTabWidget.class);
+        Intent i = new Intent(this, WorkoutRoutineView.class);
         i.putExtra(WorkoutRoutineTable.COLUMN_ID, id);
         startActivityForResult(i, ACTIVITY_EDIT);
     }

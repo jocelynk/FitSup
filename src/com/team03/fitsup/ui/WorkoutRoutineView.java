@@ -1,16 +1,18 @@
 package com.team03.fitsup.ui;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.DatabaseAdapter;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 
-public class WorkoutRoutineView extends Activity {
+public class WorkoutRoutineView extends ListActivity {
 	private DatabaseAdapter mDbAdapter;
     private TextView mNameText;
     private TextView mDescriptionText;
@@ -23,7 +25,7 @@ public class WorkoutRoutineView extends Activity {
     	mDbAdapter = new DatabaseAdapter(getApplicationContext());
     	mDbAdapter.open();
 
-    	setContentView(R.layout.workouts_view_tab);
+    	setContentView(R.layout.workouts_options);
 
     	mNameText = (TextView) findViewById(R.id.name);
     	mDescriptionText = (TextView) findViewById(R.id.description);
@@ -93,4 +95,17 @@ public class WorkoutRoutineView extends Activity {
         	mDbAdapter.updateWorkout(mRowId, name, description);
         }
     }*/
+    
+    private void fillData() {
+        // Get all of the notes from the database and create the item list
+    	Cursor workoutsCursor = mDbAdapter.fetchAllWorkouts();
+        startManagingCursor(workoutsCursor);
+
+        String[] from = new String[] { WorkoutRoutineTable.COLUMN_NAME };
+        int[] to = new int[] { R.id.text1 };
+        
+        // Now create an array adapter and set it to display using our row
+        SimpleCursorAdapter workouts = new SimpleCursorAdapter(this, R.layout.workouts_row, workoutsCursor, from, to);
+        setListAdapter(workouts);
+    }
 }
