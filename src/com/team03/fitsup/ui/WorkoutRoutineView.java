@@ -39,9 +39,10 @@ public class WorkoutRoutineView extends ListActivity {
     	    mRowId = extras != null ? extras.getLong(WorkoutRoutineTable.COLUMN_ID)
     	                            : null;
     	}
-
+    	
     	populateFields();
-
+    	fillData();
+    	registerForContextMenu(getListView());
     	//confirmButton.setOnClickListener(new View.OnClickListener() {
 
     	   // public void onClick(View view) {
