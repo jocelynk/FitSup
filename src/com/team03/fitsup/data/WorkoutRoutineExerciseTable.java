@@ -20,7 +20,7 @@ public class WorkoutRoutineExerciseTable {
 		+ WorkoutRoutineTable.TABLE_WORKOUTROUTINE 
 		+ "("+ WorkoutRoutineTable.COLUMN_ID + "), "
 		+ COLUMN_EXERCISE_ID + " integer, FOREIGN KEY " + "(" + COLUMN_EXERCISE_ID + ") REFERENCES " 
-		+ ExerciseTable.TABLE_EXERCISE 
+		+ ExerciseTable.TABLE_EXERCISE
 		+ "("+ ExerciseTable.COLUMN_ID + "));";
 	
 	public static void onCreate(SQLiteDatabase database) {

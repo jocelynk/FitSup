@@ -1,15 +1,15 @@
 package com.team03.fitsup.ui;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.view.Menu;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.DatabaseAdapter;
+import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 
 public class WorkoutRoutineView extends ListActivity {
@@ -17,6 +17,12 @@ public class WorkoutRoutineView extends ListActivity {
     private TextView mNameText;
     private TextView mDescriptionText;
     private Long mRowId;
+    
+	private static final int ACTIVITY_CREATE=0;
+    private static final int ACTIVITY_EDIT=1;
+
+    private static final int INSERT_ID = Menu.FIRST;
+    private static final int DELETE_ID = Menu.FIRST + 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,14 +105,14 @@ public class WorkoutRoutineView extends ListActivity {
     
     private void fillData() {
         // Get all of the notes from the database and create the item list
-    	Cursor workoutsCursor = mDbAdapter.fetchAllWorkouts();
-        startManagingCursor(workoutsCursor);
+    	Cursor exercisesCursor = mDbAdapter.fetchAllWorkoutExercises(mRowId);
+        startManagingCursor(exercisesCursor); //this is deprecated, look up solution later, something Alex said
 
-        String[] from = new String[] { WorkoutRoutineTable.COLUMN_NAME };
+        String[] from = new String[] { ExerciseTable.COLUMN_NAME };
         int[] to = new int[] { R.id.text1 };
         
         // Now create an array adapter and set it to display using our row
-        SimpleCursorAdapter workouts = new SimpleCursorAdapter(this, R.layout.workouts_row, workoutsCursor, from, to);
-        setListAdapter(workouts);
+        SimpleCursorAdapter exercises = new SimpleCursorAdapter(this, R.layout.workouts_row, exercisesCursor, from, to);
+        setListAdapter(exercises);
     }
 }
