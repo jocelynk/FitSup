@@ -105,9 +105,10 @@ public class DatabaseAdapter {
 				+ WorkoutRoutineTable.COLUMN_ID + " = "
 				+ "WorkoutRoutineExercises."
 				+ WorkoutRoutineExerciseTable.COLUMN_WORKOUT_ID + " AND "
-				+ "Exercises."
-				+ ExerciseTable.COLUMN_ID + " = " + "WorkoutRoutineExercises." + WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID
-				+ " AND " + "WorkoutRoutineExercises."
+				+ "Exercises." + ExerciseTable.COLUMN_ID + " = "
+				+ "WorkoutRoutineExercises."
+				+ WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID + " AND "
+				+ "WorkoutRoutineExercises."
 				+ WorkoutRoutineExerciseTable.COLUMN_WORKOUT_ID + " = ?";
 		Cursor mCursor = mDb.rawQuery(eQuery,
 				new String[] { String.valueOf(wRowId) });

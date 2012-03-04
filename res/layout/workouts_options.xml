@@ -32,7 +32,7 @@
   	<TextView android:id="@android:id/empty"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/no_workouts"/>
+        android:text="@string/no_exercises"/>
   </LinearLayout>
 
 </LinearLayout>

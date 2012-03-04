@@ -39,8 +39,11 @@ public final class R {
         public static final int edit_workout=0x7f040008;
         public static final int hello=0x7f040000;
         public static final int menu_delete=0x7f040004;
+        public static final int menu_delete_exercise=0x7f04000a;
         public static final int menu_insert=0x7f040003;
+        public static final int menu_insert_exercise=0x7f040009;
         public static final int name=0x7f040005;
+        public static final int no_exercises=0x7f04000b;
         public static final int no_workouts=0x7f040002;
     }
 }

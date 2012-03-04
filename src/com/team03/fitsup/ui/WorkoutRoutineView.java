@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,12 @@ import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 
 public class WorkoutRoutineView extends ListActivity {
+	
+	private static final String TAG = "WorkoutRoutineView";
+	private static final boolean DEBUG = true;
+	
+	
+	
 	private DatabaseAdapter mDbAdapter;
     private TextView mNameText;
     private TextView mDescriptionText;
@@ -33,11 +40,12 @@ public class WorkoutRoutineView extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+    	setContentView(R.layout.workouts_options);
 
+    	if (DEBUG) Log.v(TAG, "+++ ON CREATE +++");
+    	
     	mDbAdapter = new DatabaseAdapter(getApplicationContext());
     	mDbAdapter.open();
-
-    	setContentView(R.layout.workouts_options);
 
     	mNameText = (TextView) findViewById(R.id.name);
     	mDescriptionText = (TextView) findViewById(R.id.description);
@@ -90,7 +98,7 @@ public class WorkoutRoutineView extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(0, INSERT_ID, 0, R.string.menu_insert);
+        menu.add(0, INSERT_ID, 0, R.string.menu_insert_exercise);
         return true;
     }
     
@@ -109,7 +117,7 @@ public class WorkoutRoutineView extends ListActivity {
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+        menu.add(0, DELETE_ID, 0, R.string.menu_delete_exercise);
     }
     
     @Override

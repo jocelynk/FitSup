@@ -44,7 +44,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private void fillTestData(SQLiteDatabase db) {
 		db.execSQL("insert into Exercises (name, description, category) values ('Running', 'bad for knees', 'Cardio')");
 		db.execSQL("insert into Exercises (name, description, category) values ('Swimming', 'good for knees', 'Cardio')");
+		db.execSQL("insert into Exercises (name, description, category) values ('', 'bad for knees', 'Cardio')");
+		db.execSQL("insert into Exercises (name, description, category) values ('Swimming', 'good for knees', 'Cardio')");
 		db.execSQL("insert into Exercises (name, description, category) values ('Bench Press', 'with weights', 'Strength Training')");
 		
 	}
+	//things to fix:
+	/*person can only add exercise once
+	 * fragments within addexercise edit so that fragments enable 2 behaviors
+	 * rename classes so Activities have Activity at the end*/
 }

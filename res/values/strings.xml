@@ -10,4 +10,7 @@
     <string name="description">Description</string>
     <string name="confirm">Confirm</string>
     <string name="edit_workout">Edit Workout Routine</string>
+    <string name="menu_insert_exercise">Add Exercise</string>
+    <string name="menu_delete_exercise">Delete Exercise</string>
+    <string name="no_exercises">You have no Exercises. Add Exercise from Menu.</string>
 </resources>
