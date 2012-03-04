@@ -6,7 +6,7 @@ import android.util.Log;
 public class ExerciseTable {
 	
 	//Database table
-	public static final String TABLE_EXERCISE = "EXERCISE";
+	public static final String TABLE_EXERCISE = "Exercises";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NAME = "name";
 	public static final String COLUMN_DESCRIPTION = "description";

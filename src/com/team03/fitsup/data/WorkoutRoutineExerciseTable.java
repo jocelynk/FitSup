@@ -6,7 +6,7 @@ import android.util.Log;
 public class WorkoutRoutineExerciseTable {
 	
 	//Database table
-	public static final String TABLE_WORKOUTROUTINE_EXERCISE = "WorkoutRoutineExercise";
+	public static final String TABLE_WORKOUTROUTINE_EXERCISE = "WorkoutRoutineExercises";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_WORKOUT_ID = "workout_id";
 	public static final String COLUMN_EXERCISE_ID = "exercise_id";
@@ -16,10 +16,10 @@ public class WorkoutRoutineExerciseTable {
 		+ TABLE_WORKOUTROUTINE_EXERCISE
 		+ "("
 		+ COLUMN_ID + " integer primary key autoincrement, "
-		+ COLUMN_WORKOUT_ID + " integer, FOREIGN KEY " + "(" + COLUMN_WORKOUT_ID + ") REFERENCES " 
+		+ COLUMN_WORKOUT_ID + " integer not null REFERENCES " 
 		+ WorkoutRoutineTable.TABLE_WORKOUTROUTINE 
 		+ "("+ WorkoutRoutineTable.COLUMN_ID + "), "
-		+ COLUMN_EXERCISE_ID + " integer, FOREIGN KEY " + "(" + COLUMN_EXERCISE_ID + ") REFERENCES " 
+		+ COLUMN_EXERCISE_ID + " integer not null REFERENCES " 
 		+ ExerciseTable.TABLE_EXERCISE
 		+ "("+ ExerciseTable.COLUMN_ID + "));";
 	

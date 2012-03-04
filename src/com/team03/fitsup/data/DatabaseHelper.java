@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		WorkoutRoutineTable.onCreate(database);
 		ExerciseTable.onCreate(database);
 		WorkoutRoutineExerciseTable.onCreate(database);
+		fillTestData(database);
 		
 	}
 	
@@ -37,5 +38,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		WorkoutRoutineTable.onUpgrade(database, oldVersion, newVersion);
 		ExerciseTable.onUpgrade(database, oldVersion, newVersion);
 		WorkoutRoutineExerciseTable.onUpgrade(database, oldVersion, newVersion);
+	}
+	
+	//Seed Exercise Table
+	private void fillTestData(SQLiteDatabase db) {
+		db.execSQL("insert into Exercises (name, description, category) values ('Running', 'bad for knees', 'Cardio')");
+		db.execSQL("insert into Exercises (name, description, category) values ('Swimming', 'good for knees', 'Cardio')");
+		db.execSQL("insert into Exercises (name, description, category) values ('Bench Press', 'with weights', 'Strength Training')");
+		
 	}
 }
