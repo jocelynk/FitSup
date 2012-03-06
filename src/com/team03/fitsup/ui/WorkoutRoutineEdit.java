@@ -13,6 +13,9 @@ import com.team03.fitsup.data.WorkoutRoutineTable;
 
 public class WorkoutRoutineEdit extends Activity {
 	
+	private static final String TAG = "WorkoutRoutineEdit";
+	private static final boolean DEBUG = true;
+	
 	private DatabaseAdapter mDbAdapter;
     private EditText mNameText;
     private EditText mDescriptionText;

@@ -79,13 +79,10 @@ public class DatabaseAdapter {
 	}
 
 	// WorkoutRoutineExercise Queries
-	public boolean deleteExerciseFromWorkout(long wRowId, long eRowId) {
+	public boolean deleteExerciseFromWorkout(long mRowId) {
 		return mDb.delete(
 				WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE,
-				WorkoutRoutineExerciseTable.COLUMN_WORKOUT_ID + " = " + wRowId
-						+ " AND "
-						+ WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID
-						+ " = " + eRowId, null) > 0;
+				WorkoutRoutineExerciseTable.COLUMN_ID + " = " + mRowId, null) > 0;
 	}
 
 	public Cursor fetchAllWorkoutExercises(long wRowId) {
