@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -28,9 +29,10 @@ import com.team03.fitsup.data.WorkoutRoutineTable;
  it and then cause memory leak*/
 
 public class WorkoutUI extends ListActivity {
-	// private int mWorkoutNumber = 1;
-	// private DatabaseAdapter mDbAdapter;
-	// public static final int INSERT_ID = Menu.FIRST;
+	
+	private static final String TAG = "WorkoutUI";
+	private static final boolean DEBUG = true;
+	
 
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
@@ -107,6 +109,7 @@ public class WorkoutUI extends ListActivity {
 		case DELETE_ID:
 			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 					.getMenuInfo();
+			if (DEBUG) Log.v(TAG, "This is the menu id (checking to see if same as in DB: " + info.id);
 			mDbAdapter.deleteWorkout(info.id);
 			fillData();
 			return true;

@@ -91,7 +91,7 @@ public class WorkoutRoutineView extends ListActivity {
         int[] to = new int[] { R.id.text1 };
         
         // Now create an array adapter and set it to display using our row
-        SimpleCursorAdapter exercises = new SimpleCursorAdapter(this, R.layout.workouts_row, exercisesCursor, from, to);
+        SimpleCursorAdapter exercises = new SimpleCursorAdapter(this, R.layout.exercises_row, exercisesCursor, from, to);
         setListAdapter(exercises);
     }
     
@@ -125,7 +125,9 @@ public class WorkoutRoutineView extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                mDbAdapter.deleteExerciseFromWorkout(mRowId, info.id);
+                if (DEBUG) Log.v(TAG, "This is the menuitem: " + info);
+                if (DEBUG) Log.v(TAG, "This is the menu id (checking to see if same as in DB: " + info.id);
+                mDbAdapter.deleteExerciseFromWorkout(info.id);
                 fillData();
                 return true;
         }

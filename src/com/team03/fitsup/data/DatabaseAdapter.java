@@ -79,23 +79,17 @@ public class DatabaseAdapter {
 	}
 
 	// WorkoutRoutineExercise Queries
-	public boolean deleteExerciseFromWorkout(long wRowId, long eRowId) {
+	public boolean deleteExerciseFromWorkout(long mRowId) {
 		return mDb.delete(
 				WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE,
-				WorkoutRoutineExerciseTable.COLUMN_WORKOUT_ID + " = " + wRowId
-						+ " AND "
-						+ WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID
-						+ " = " + eRowId, null) > 0;
+				WorkoutRoutineExerciseTable.COLUMN_ID + " = " + mRowId, null) > 0;
 	}
 
 	public Cursor fetchAllWorkoutExercises(long wRowId) {
-		String[] columns = new String[] { ExerciseTable.COLUMN_ID,
-				ExerciseTable.COLUMN_NAME, ExerciseTable.COLUMN_DESCRIPTION,
-				ExerciseTable.COLUMN_CATEGORY };
-		for (int i = 0; i < columns.length; i++) {
-			// String column_name = ;
-			columns[i] = ExerciseTable.TABLE_EXERCISE + "." + columns[i];
-		}
+		String[] columns = new String[] { WorkoutRoutineExerciseTable.COLUMN_ID,
+				ExerciseTable.COLUMN_NAME };
+		columns[0] = "WorkoutRoutineExercises."+columns[0];
+		columns[1] = "Exercises."+columns[1];
 		String[] tables = new String[] { ExerciseTable.TABLE_EXERCISE,
 				WorkoutRoutineTable.TABLE_WORKOUTROUTINE,
 				WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE };
