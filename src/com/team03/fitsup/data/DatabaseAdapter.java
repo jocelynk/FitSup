@@ -86,13 +86,10 @@ public class DatabaseAdapter {
 	}
 
 	public Cursor fetchAllWorkoutExercises(long wRowId) {
-		String[] columns = new String[] { ExerciseTable.COLUMN_ID,
-				ExerciseTable.COLUMN_NAME, ExerciseTable.COLUMN_DESCRIPTION,
-				ExerciseTable.COLUMN_CATEGORY };
-		for (int i = 0; i < columns.length; i++) {
-			// String column_name = ;
-			columns[i] = ExerciseTable.TABLE_EXERCISE + "." + columns[i];
-		}
+		String[] columns = new String[] { WorkoutRoutineExerciseTable.COLUMN_ID,
+				ExerciseTable.COLUMN_NAME };
+		columns[0] = "WorkoutRoutineExercises."+columns[0];
+		columns[1] = "Exercises."+columns[1];
 		String[] tables = new String[] { ExerciseTable.TABLE_EXERCISE,
 				WorkoutRoutineTable.TABLE_WORKOUTROUTINE,
 				WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE };

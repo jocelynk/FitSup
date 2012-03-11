@@ -91,7 +91,7 @@ public class WorkoutRoutineView extends ListActivity {
         int[] to = new int[] { R.id.text1 };
         
         // Now create an array adapter and set it to display using our row
-        SimpleCursorAdapter exercises = new SimpleCursorAdapter(this, R.layout.workouts_row, exercisesCursor, from, to);
+        SimpleCursorAdapter exercises = new SimpleCursorAdapter(this, R.layout.exercises_row, exercisesCursor, from, to);
         setListAdapter(exercises);
     }
     
