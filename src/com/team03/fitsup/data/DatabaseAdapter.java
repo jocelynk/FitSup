@@ -162,14 +162,13 @@ public class DatabaseAdapter {
 
 	public Cursor fetchAllCategories() {
 
-		Log.v(TAG, "fetchAllCategories method called");
 		return mDb.query(ExerciseTable.TABLE_EXERCISE,
 				new String[] { ExerciseTable.COLUMN_ID, ExerciseTable.COLUMN_CATEGORY }, null, null, ExerciseTable.COLUMN_CATEGORY ,
 				null, null);
 	}
 	
 	public Cursor fetchAllExercisesByCategory(String category) {
-		Log.v(TAG, "fetchAllExercisesByCategories method called");
+
 		return mDb.query(ExerciseTable.TABLE_EXERCISE,
 				new String[] { ExerciseTable.COLUMN_ID, ExerciseTable.COLUMN_NAME }, ExerciseTable.COLUMN_CATEGORY+ " IS ? ", new String[] {category},null,
 				null, null);

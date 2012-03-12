@@ -27,6 +27,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		WorkoutRoutineTable.onCreate(database);
 		ExerciseTable.onCreate(database);
 		WorkoutRoutineExerciseTable.onCreate(database);
+		AttributeTable.onCreate(database);
+		ExerciseAttributeTable.onCreate(database);
+		RecordTable.onCreate(database);
 		fillTestData(database);
 		
 	}
@@ -38,6 +41,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		WorkoutRoutineTable.onUpgrade(database, oldVersion, newVersion);
 		ExerciseTable.onUpgrade(database, oldVersion, newVersion);
 		WorkoutRoutineExerciseTable.onUpgrade(database, oldVersion, newVersion);
+		AttributeTable.onUpgrade(database, oldVersion, newVersion);
+		ExerciseAttributeTable.onUpgrade(database, oldVersion, newVersion);
+		RecordTable.onUpgrade(database, oldVersion, newVersion);
 	}
 	
 	//Seed Exercise Table
