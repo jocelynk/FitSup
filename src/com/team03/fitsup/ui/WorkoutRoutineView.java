@@ -22,9 +22,7 @@ import com.team03.fitsup.data.WorkoutRoutineTable;
 public class WorkoutRoutineView extends ListActivity {
 	
 	private static final String TAG = "WorkoutRoutineView";
-	private static final boolean DEBUG = true;
-	
-	
+	private static final boolean DEBUG = true;	
 	
 	private DatabaseAdapter mDbAdapter;
     private TextView mNameText;

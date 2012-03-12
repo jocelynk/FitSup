@@ -85,8 +85,6 @@ public class WorkoutExerciseEdit extends Activity {
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,
 				long id) {
 			eRowId = parent.getSelectedItemId();
-			Log.v(TAG, "This is the exercise Id: " + eRowId);
-
 		}
 
 		public void onNothingSelected(AdapterView parent) {

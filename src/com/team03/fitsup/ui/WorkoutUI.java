@@ -29,16 +29,16 @@ import com.team03.fitsup.data.WorkoutRoutineTable;
  it and then cause memory leak*/
 
 public class WorkoutUI extends ListActivity {
-	
+
 	private static final String TAG = "WorkoutUI";
 	private static final boolean DEBUG = true;
-	
 
 	private static final int ACTIVITY_CREATE = 0;
-	private static final int ACTIVITY_EDIT = 1;
+	private static final int ACTIVITY_VIEW = 1;
+	private static final int ACTIVITY_EDIT = 2;
 
 	private static final int INSERT_ID = Menu.FIRST;
-	private static final int DELETE_ID = Menu.FIRST + 1;
+	//private static final int DELETE_ID = Menu.FIRST + 1;
 
 	private DatabaseAdapter mDbAdapter;
 
@@ -49,6 +49,9 @@ public class WorkoutUI extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.workouts_index);
+		
+		Log.v(TAG, "+++ ON CREATE +++");
+
 		mDbAdapter = new DatabaseAdapter(getApplicationContext());
 		mDbAdapter.open();
 		fillData();
@@ -100,18 +103,31 @@ public class WorkoutUI extends ListActivity {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+		getMenuInflater().inflate(R.menu.workoutroutine_context_menu, menu);
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
 		switch (item.getItemId()) {
-		case DELETE_ID:
-			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-					.getMenuInfo();
-			if (DEBUG) Log.v(TAG, "This is the menu id (checking to see if same as in DB: " + info.id);
+		case R.id.menu_delete_wr:
+			if (DEBUG)
+				Log.v(TAG,
+						"This is the menu id (checking to see if same as in DB: "
+								+ info.id);
 			mDbAdapter.deleteWorkout(info.id);
 			fillData();
+			return true;
+		case R.id.menu_view_wr:
+			Intent i = new Intent(this, WorkoutRoutineView.class);
+			i.putExtra(WorkoutRoutineTable.COLUMN_ID, info.id);
+			startActivityForResult(i, ACTIVITY_VIEW);
+			return true;
+		case R.id.menu_edit_wr:
+			Intent j = new Intent(this, WorkoutRoutineEdit.class);
+			j.putExtra(WorkoutRoutineTable.COLUMN_ID, info.id);
+			startActivityForResult(j, ACTIVITY_VIEW);
 			return true;
 		}
 		return super.onContextItemSelected(item);
@@ -135,13 +151,13 @@ public class WorkoutUI extends ListActivity {
 		startActivityForResult(i, ACTIVITY_CREATE);
 	}
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(this, WorkoutRoutineView.class);
-		i.putExtra(WorkoutRoutineTable.COLUMN_ID, id);
-		startActivityForResult(i, ACTIVITY_EDIT);
-	}
+	/*
+	 * @Override protected void onListItemClick(ListView l, View v, int
+	 * position, long id) { super.onListItemClick(l, v, position, id); Intent i
+	 * = new Intent(this, WorkoutRoutineView.class);
+	 * i.putExtra(WorkoutRoutineTable.COLUMN_ID, id); startActivityForResult(i,
+	 * ACTIVITY_EDIT); }
+	 */
 
 	/*
 	 * @Override protected void onListItemClick(ListView l, View v, int

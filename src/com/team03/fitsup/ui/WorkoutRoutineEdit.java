@@ -3,6 +3,7 @@ package com.team03.fitsup.ui;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,11 +25,12 @@ public class WorkoutRoutineEdit extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-
+    	setContentView(R.layout.workouts_edit);
+    	
+    	if (DEBUG) Log.v(TAG, "+++ ON CREATE +++");
+    	
     	mDbAdapter = new DatabaseAdapter(getApplicationContext());
     	mDbAdapter.open();
-
-    	setContentView(R.layout.workouts_edit);
 
     	mNameText = (EditText) findViewById(R.id.name);
     	mDescriptionText = (EditText) findViewById(R.id.description);
@@ -100,6 +102,7 @@ public class WorkoutRoutineEdit extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+		if (DEBUG) Log.v(TAG, "ON SAVED INSTANCE STATE");
         saveState();
         outState.putSerializable(WorkoutRoutineTable.COLUMN_ID, mRowId);
     }
@@ -107,12 +110,14 @@ public class WorkoutRoutineEdit extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+		if (DEBUG) Log.v(TAG, "+ ON PAUSE +");
         saveState();
     }
     
     @Override
     protected void onResume() {
         super.onResume();
+		Log.v(TAG, "+ ON RESUME +");
         populateFields();
     }
     
