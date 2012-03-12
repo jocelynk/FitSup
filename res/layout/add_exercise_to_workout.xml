@@ -9,10 +9,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
-        android:text="test" />
+        android:text="@string/choose_exercise" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinner1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+     <Spinner
+        android:id="@+id/spinner2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 

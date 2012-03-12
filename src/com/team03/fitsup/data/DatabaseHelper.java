@@ -44,7 +44,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private void fillTestData(SQLiteDatabase db) {
 		db.execSQL("insert into Exercises (name, description, category) values ('Running', 'bad for knees', 'Cardio')");
 		db.execSQL("insert into Exercises (name, description, category) values ('Swimming', 'good for knees', 'Cardio')");
+		db.execSQL("insert into Exercises (name, description, category) values ('Elliptical', 'good for knees', 'Cardio')");
 		db.execSQL("insert into Exercises (name, description, category) values ('Bench Press', 'with weights', 'Strength Training')");
+		db.execSQL("insert into Exercises (name, description, category) values ('Bicep Curls', 'with weights', 'Strength Training')");
+		db.execSQL("insert into Exercises (name, description, category) values ('Tricep Curls', 'with weights', 'Strength Training')");
+		db.execSQL("insert into Exercises (name, description, category) values ('Jumping Jacks', 'bad for knees', 'Warmup')");
+		db.execSQL("insert into Exercises (name, description, category) values ('Stretching', 'good for knees', 'Warmup')");
+		db.execSQL("insert into Exercises (name, description, category) values ('Jump Rope', 'good for knees', 'Warmup')");
 		
 	}
 	//things to fix:

@@ -6,8 +6,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.util.Log;
 
 public class DatabaseAdapter {
+	
+	private static final String TAG = "Database Adapter";
+	private static final boolean DEBUG = true;
 
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
@@ -156,13 +160,18 @@ public class DatabaseAdapter {
 
 	// Exercise Queries
 
-	public Cursor fetchAllExercises() {
+	public Cursor fetchAllCategories() {
 
+		Log.v(TAG, "fetchAllCategories method called");
 		return mDb.query(ExerciseTable.TABLE_EXERCISE,
-				new String[] { ExerciseTable.COLUMN_ID,
-						ExerciseTable.COLUMN_NAME,
-						ExerciseTable.COLUMN_DESCRIPTION,
-						ExerciseTable.COLUMN_CATEGORY }, null, null, null,
+				new String[] { ExerciseTable.COLUMN_ID, ExerciseTable.COLUMN_CATEGORY }, null, null, ExerciseTable.COLUMN_CATEGORY ,
+				null, null);
+	}
+	
+	public Cursor fetchAllExercisesByCategory(String category) {
+		Log.v(TAG, "fetchAllExercisesByCategories method called");
+		return mDb.query(ExerciseTable.TABLE_EXERCISE,
+				new String[] { ExerciseTable.COLUMN_ID, ExerciseTable.COLUMN_NAME }, ExerciseTable.COLUMN_CATEGORY+ " IS ? ", new String[] {category},null,
 				null, null);
 	}
 

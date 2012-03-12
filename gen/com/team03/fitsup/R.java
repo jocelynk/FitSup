@@ -17,14 +17,15 @@ public final class R {
         public static final int tabs_workouts=0x7f020003;
     }
     public static final class id {
-        public static final int confirm=0x7f060001;
-        public static final int description=0x7f060004;
-        public static final int menu_delete_wr=0x7f060007;
-        public static final int menu_edit_wr=0x7f060006;
-        public static final int menu_view_wr=0x7f060005;
-        public static final int name=0x7f060003;
-        public static final int spinner=0x7f060000;
-        public static final int text1=0x7f060002;
+        public static final int confirm=0x7f060002;
+        public static final int description=0x7f060005;
+        public static final int menu_delete_wr=0x7f060008;
+        public static final int menu_edit_wr=0x7f060007;
+        public static final int menu_view_wr=0x7f060006;
+        public static final int name=0x7f060004;
+        public static final int spinner1=0x7f060000;
+        public static final int spinner2=0x7f060001;
+        public static final int text1=0x7f060003;
     }
     public static final class layout {
         public static final int add_exercise_to_workout=0x7f030000;
@@ -39,6 +40,7 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040001;
+        public static final int choose_exercise=0x7f04000e;
         public static final int confirm=0x7f040007;
         public static final int description=0x7f040006;
         public static final int hello=0x7f040000;
