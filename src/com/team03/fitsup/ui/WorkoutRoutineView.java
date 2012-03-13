@@ -123,8 +123,6 @@ public class WorkoutRoutineView extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                if (DEBUG) Log.v(TAG, "This is the menuitem: " + info);
-                if (DEBUG) Log.v(TAG, "This is the menu id (checking to see if same as in DB: " + info.id);
                 mDbAdapter.deleteExerciseFromWorkout(info.id);
                 fillData();
                 return true;

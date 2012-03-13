@@ -112,11 +112,8 @@ public class WorkoutUI extends ListActivity {
 				.getMenuInfo();
 		switch (item.getItemId()) {
 		case R.id.menu_delete_wr:
-			if (DEBUG)
-				Log.v(TAG,
-						"This is the menu id (checking to see if same as in DB: "
-								+ info.id);
 			mDbAdapter.deleteWorkout(info.id);
+			mDbAdapter.deleteWorkoutExercise(info.id);
 			fillData();
 			return true;
 		case R.id.menu_view_wr:
@@ -127,7 +124,7 @@ public class WorkoutUI extends ListActivity {
 		case R.id.menu_edit_wr:
 			Intent j = new Intent(this, WorkoutRoutineEdit.class);
 			j.putExtra(WorkoutRoutineTable.COLUMN_ID, info.id);
-			startActivityForResult(j, ACTIVITY_VIEW);
+			startActivityForResult(j, ACTIVITY_EDIT);
 			return true;
 		}
 		return super.onContextItemSelected(item);

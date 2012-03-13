@@ -32,7 +32,7 @@ public class DatabaseAdapter {
 		mDbHelper.close();
 	}
 
-	// WorkoutRoutine Queries
+	// ++++WorkoutRoutine Queries++++
 
 	public long createWorkout(String name, String description) {
 		ContentValues initialValues = new ContentValues();
@@ -82,7 +82,7 @@ public class DatabaseAdapter {
 				WorkoutRoutineTable.COLUMN_ID + "=" + rowId, null) > 0;
 	}
 
-	// WorkoutRoutineExercise Queries
+	// ++++WorkoutRoutineExercise Queries++++
 	public boolean deleteExerciseFromWorkout(long mRowId) {
 		return mDb.delete(
 				WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE,
@@ -127,7 +127,6 @@ public class DatabaseAdapter {
 				WorkoutRoutineTable.TABLE_WORKOUTROUTINE,
 				WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE };
 		for (int i = 0; i < columns.length; i++) {
-			// String column_name = ;
 			columns[i] = ExerciseTable.TABLE_EXERCISE + "." + columns[i];
 		}
 		String eQuery = "SELECT " + TextUtils.join(", ", columns) + " FROM "
@@ -157,8 +156,15 @@ public class DatabaseAdapter {
 				WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE,
 				null, initialValues);
 	}
+	
+	public boolean deleteWorkoutExercise(long wRowId) {
+		return mDb.delete(
+				WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE,
+				WorkoutRoutineExerciseTable.COLUMN_WORKOUT_ID + " = " + wRowId, null) > 0;
+		
+	}
 
-	// Exercise Queries
+	// ++++Exercise Queries++++
 
 	public Cursor fetchAllCategories() {
 
