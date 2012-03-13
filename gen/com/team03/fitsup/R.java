@@ -20,8 +20,10 @@ public final class R {
         public static final int confirm=0x7f060002;
         public static final int description=0x7f060005;
         public static final int menu_delete_wr=0x7f060008;
+        public static final int menu_delete_wre=0x7f06000a;
         public static final int menu_edit_wr=0x7f060007;
         public static final int menu_view_wr=0x7f060006;
+        public static final int menu_view_wre=0x7f060009;
         public static final int name=0x7f060004;
         public static final int spinner1=0x7f060000;
         public static final int spinner2=0x7f060001;
@@ -37,22 +39,24 @@ public final class R {
     }
     public static final class menu {
         public static final int workoutroutine_context_menu=0x7f050000;
+        public static final int wr_exercise_context_menu=0x7f050001;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
-        public static final int choose_exercise=0x7f04000e;
+        public static final int choose_exercise=0x7f04000d;
         public static final int confirm=0x7f040007;
         public static final int description=0x7f040006;
         public static final int hello=0x7f040000;
         public static final int menu_delete=0x7f040004;
-        public static final int menu_delete_exercise=0x7f040009;
-        public static final int menu_delete_wr=0x7f04000d;
-        public static final int menu_edit_wr=0x7f04000c;
+        public static final int menu_delete_wr=0x7f04000c;
+        public static final int menu_delete_wre=0x7f04000f;
+        public static final int menu_edit_wr=0x7f04000b;
         public static final int menu_insert=0x7f040003;
         public static final int menu_insert_exercise=0x7f040008;
-        public static final int menu_view_wr=0x7f04000b;
+        public static final int menu_view_wr=0x7f04000a;
+        public static final int menu_view_wre=0x7f04000e;
         public static final int name=0x7f040005;
-        public static final int no_exercises=0x7f04000a;
+        public static final int no_exercises=0x7f040009;
         public static final int no_workouts=0x7f040002;
     }
 }

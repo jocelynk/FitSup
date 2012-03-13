@@ -10,10 +10,12 @@
     <string name="description">Description</string>
     <string name="confirm">Confirm</string>
     <string name="menu_insert_exercise">Add Exercise</string>
-    <string name="menu_delete_exercise">Delete Exercise</string>
     <string name="no_exercises">You have no Exercises. Add Exercise from Menu.</string>
     <string name="menu_view_wr">View Workout Routine</string>
     <string name="menu_edit_wr">Edit Workout Routine</string>
     <string name="menu_delete_wr">Delete Workout Routine</string>
     <string name="choose_exercise">Choose an Exercise.</string>
+    <string name="menu_view_wre">View Exercise</string>
+    <string name="menu_delete_wre">Delete Exercise</string>
+    
 </resources>

@@ -30,10 +30,11 @@ public class WorkoutRoutineView extends ListActivity {
     private Long mRowId;
     private Long eRowId;
     
-	private static final int ACTIVITY_CREATE=0;
+    private static final int ACTIVITY_CREATE = 0;
+	private static final int ACTIVITY_VIEW = 1;
 
     private static final int INSERT_ID = Menu.FIRST;
-    private static final int DELETE_ID = Menu.FIRST + 1;
+    //private static final int DELETE_ID = Menu.FIRST + 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,20 +113,25 @@ public class WorkoutRoutineView extends ListActivity {
     }
     
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, DELETE_ID, 0, R.string.menu_delete_exercise);
-    }
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		getMenuInflater().inflate(R.menu.wr_exercise_context_menu, menu);
+	}
     
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case DELETE_ID:
-                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		switch (item.getItemId()) {
+		case R.id.menu_delete_wre:
                 mDbAdapter.deleteExerciseFromWorkout(info.id);
                 fillData();
                 return true;
+		//case R.id.menu_view_wre:
+			//Intent i = new Intent(this, ExerciseView.class);
+			//i.putExtra(WorkoutRoutineTable.COLUMN_ID, info.id);
+			//startActivityForResult(i, ACTIVITY_VIEW);
+			//return true;
         }
         return super.onContextItemSelected(item);
     }
