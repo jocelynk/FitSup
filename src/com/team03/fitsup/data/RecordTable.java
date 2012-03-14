@@ -3,6 +3,8 @@ package com.team03.fitsup.data;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+
+
 public class RecordTable {
 	//Database table
 	public static final String TABLE_RECORD = "Records";
@@ -18,7 +20,7 @@ public class RecordTable {
 		+ "("
 		+ COLUMN_ID + " integer primary key autoincrement, "
 		+ COLUMN_DATE + " text not null, "
-		+ COLUMN_VALUE + " integer not null, "
+		+ COLUMN_VALUE + " double not null, "
 		+ COLUMN_WRKT_RTNE_E_ID + " integer not null REFERENCES " 
 		+ WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE 
 		+ "("+ WorkoutRoutineExerciseTable.COLUMN_ID + "), "

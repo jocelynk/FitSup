@@ -32,6 +32,50 @@ public class DatabaseAdapter {
 		mDbHelper.close();
 	}
 
+	// ++++Record Queries++++
+	public long createRecord(String date, long value, long exercise_attr_id, long wr_e_id) {
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(RecordTable.COLUMN_DATE, date);
+		initialValues.put(RecordTable.COLUMN_VALUE, value);
+		initialValues.put(RecordTable.COLUMN_E_ATTR_ID, exercise_attr_id);
+		initialValues.put(RecordTable.COLUMN_WRKT_RTNE_E_ID, wr_e_id);
+		
+		return mDb.insert(RecordTable.TABLE_RECORD, null, initialValues);
+	}
+	
+	public Cursor fetchRecord(long rowId) { /////Need to change this query later
+		Cursor mCursor =
+
+			mDb.query(true, RecordTable.TABLE_RECORD, new String[] {
+					RecordTable.COLUMN_ID, RecordTable.COLUMN_VALUE},
+					WorkoutRoutineTable.COLUMN_ID + " = ? ", new String[] {String.valueOf(rowId)}, null, null,
+					null, null);
+			if (mCursor != null) {
+				mCursor.moveToFirst();
+			}
+			return mCursor;
+	}
+	
+	public Cursor fetchAllRecordsByExercise(long wreRowId) {
+
+		return mDb.query(RecordTable.TABLE_RECORD,
+				new String[] { RecordTable.COLUMN_ID,
+						RecordTable.COLUMN_DATE}, RecordTable.COLUMN_WRKT_RTNE_E_ID + " = ? ", new String[] {String.valueOf(wreRowId)},
+				null, null, null);
+	}
+	
+	public boolean deleteRecord(long rowId) {
+		return mDb.delete(RecordTable.TABLE_RECORD,
+				RecordTable.COLUMN_ID + " = ? ", new String[] {String.valueOf(rowId)}) > 0;
+	} //if errors check this method
+	
+	public boolean deleteRecordsByWRE(long wreRowId) {
+		return mDb.delete(RecordTable.TABLE_RECORD, RecordTable.COLUMN_WRKT_RTNE_E_ID + " = ? ", new String[] {String.valueOf(wreRowId)}) > 0;
+		
+	} //if errors check this method
+
+	
+	//need to figure out what to do with date and how to add either datepicker or calendar, fragments? when you click on date?
 	// ++++WorkoutRoutine Queries++++
 
 	public long createWorkout(String name, String description) {
@@ -64,8 +108,8 @@ public class DatabaseAdapter {
 		mDb.query(true, WorkoutRoutineTable.TABLE_WORKOUTROUTINE, new String[] {
 				WorkoutRoutineTable.COLUMN_ID, WorkoutRoutineTable.COLUMN_NAME,
 				WorkoutRoutineTable.COLUMN_DESCRIPTION },
-				WorkoutRoutineTable.COLUMN_ID + "=" + rowId, null, null, null,
-				null, null);
+				WorkoutRoutineTable.COLUMN_ID + " = ? ", new String[] {String.valueOf(rowId)}, null, null,
+				null, null); //******************need to change this query so avoid sql injection *******************//
 		if (mCursor != null) {
 			mCursor.moveToFirst();
 		}

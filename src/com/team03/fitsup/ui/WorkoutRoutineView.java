@@ -17,6 +17,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.DatabaseAdapter;
 import com.team03.fitsup.data.ExerciseTable;
+import com.team03.fitsup.data.WorkoutRoutineExerciseTable;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 
 public class WorkoutRoutineView extends ListActivity {
@@ -120,18 +121,20 @@ public class WorkoutRoutineView extends ListActivity {
 	}
     
     @Override
+    //Change to View Exercise, Add Record, Delete Exercise
     public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch (item.getItemId()) {
 		case R.id.menu_delete_wre:
                 mDbAdapter.deleteExerciseFromWorkout(info.id);
+                mDbAdapter.deleteRecordsByWRE(info.id);
                 fillData();
                 return true;
-		//case R.id.menu_view_wre:
-			//Intent i = new Intent(this, ExerciseView.class);
-			//i.putExtra(WorkoutRoutineTable.COLUMN_ID, info.id);
-			//startActivityForResult(i, ACTIVITY_VIEW);
-			//return true;
+		case R.id.menu_view_wre:
+			Intent i = new Intent(this, ExerciseRecordUI.class);
+			i.putExtra(WorkoutRoutineExerciseTable.COLUMN_ID, info.id);
+			startActivityForResult(i, ACTIVITY_VIEW);
+			return true;
         }
         return super.onContextItemSelected(item);
     }

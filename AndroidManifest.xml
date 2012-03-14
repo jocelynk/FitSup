@@ -25,6 +25,9 @@
         <activity android:name=".ui.WorkoutRoutineView" />
         <activity android:name=".ui.WorkoutExerciseView" />
         <activity android:name=".ui.WorkoutExerciseEdit" />
+        <activity android:name=".ui.ExerciseRecordUI" />
+        <activity android:name=".ui.ExerciseRecordEdit" />
+        <activity android:name=".ui.RecordView" />
     </application>
 
 </manifest>
