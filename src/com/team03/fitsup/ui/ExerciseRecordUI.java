@@ -16,6 +16,7 @@ import android.widget.SimpleCursorAdapter;
 
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.DatabaseAdapter;
+import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.RecordTable;
 import com.team03.fitsup.data.WorkoutRoutineExerciseTable;
 import com.team03.fitsup.data.WorkoutRoutineTable;
@@ -28,7 +29,7 @@ import com.team03.fitsup.data.WorkoutRoutineTable;
 //Specify hints for all EditTexts
 
 public class ExerciseRecordUI extends ListActivity {
-	private static final String TAG = "WorkoutUI";
+	private static final String TAG = "ExerciseRecordUI";
 	private static final boolean DEBUG = true;
 
 	private static final int ACTIVITY_CREATE = 0;
@@ -39,32 +40,35 @@ public class ExerciseRecordUI extends ListActivity {
 
 	private DatabaseAdapter mDbAdapter;
 	private Long wreRowId;
+	private String date;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.records_by_exercise_index);
-		
+
 		Log.v(TAG, "+++ ON CREATE +++");
 
 		mDbAdapter = new DatabaseAdapter(getApplicationContext());
 		mDbAdapter.open();
-		
-		wreRowId = (savedInstanceState == null) ? null :
-    	    (Long) savedInstanceState.getSerializable(WorkoutRoutineExerciseTable.COLUMN_ID);
-    	if (wreRowId == null) {
-    	    Bundle extras = getIntent().getExtras();
-    	    wreRowId = extras != null ? extras.getLong(WorkoutRoutineExerciseTable.COLUMN_ID)
-    	                            : null;
-    	}
+
+		wreRowId = (savedInstanceState == null) ? null
+				: (Long) savedInstanceState
+						.getSerializable(WorkoutRoutineExerciseTable.COLUMN_ID);
+		if (wreRowId == null) {
+			Bundle extras = getIntent().getExtras();
+			wreRowId = extras != null ? extras
+					.getLong(WorkoutRoutineExerciseTable.COLUMN_ID) : null;
+		}
+	
 		fillData();
 		registerForContextMenu(getListView());
 	}
 
 	private void fillData() {
 		// Get all of the notes from the database and create the item list
-		Cursor recordsCursor = mDbAdapter.fetchAllRecordsByExercise(wreRowId);
+		Cursor recordsCursor = mDbAdapter.fetchAllDatesOfExercise(wreRowId);
 		startManagingCursor(recordsCursor);
 
 		String[] from = new String[] { RecordTable.COLUMN_DATE };
@@ -73,7 +77,7 @@ public class ExerciseRecordUI extends ListActivity {
 		// Now create an array adapter and set it to display using our row
 		SimpleCursorAdapter records = new SimpleCursorAdapter(this,
 				R.layout.records_row, recordsCursor, from, to);
-		setListAdapter(records); //should i change text1 to something else
+		setListAdapter(records); // should i change text1 to something else
 	}
 
 	@Override
@@ -103,36 +107,55 @@ public class ExerciseRecordUI extends ListActivity {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		Cursor c = mDbAdapter.fetchAllDatesOfExercise(wreRowId);
+		startManagingCursor(c);
+		c.moveToPosition(info.position);
+		String date = c.getString(c
+				.getColumnIndexOrThrow(RecordTable.COLUMN_DATE)); // does this
+		//Cursor exercise_id = mDbAdapter.fetchExercisebyWRE(wreRowId);
+		//long e_id = exercise_id.getLong(exercise_id
+				//.getColumnIndexOrThrow(ExerciseTable.COLUMN_ID));	
+		Cursor exercise_id = mDbAdapter.fetchExerciseIDBYWRE(wreRowId);
+		long e_id = exercise_id.getLong(exercise_id.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID));
 		switch (item.getItemId()) {
 		case R.id.menu_delete_r:
-			mDbAdapter.deleteRecord(info.id);
+			mDbAdapter.deleteRecord(date, wreRowId);
 			fillData();
 			return true;
 		case R.id.menu_view_r:
 			Intent i = new Intent(this, RecordView.class);
 			i.putExtra(RecordTable.COLUMN_ID, info.id);
+			i.putExtra(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);
+			i.putExtra(RecordTable.COLUMN_DATE, date);
+			i.putExtra(ExerciseTable.COLUMN_ID, e_id);
+			c.close();
 			startActivityForResult(i, ACTIVITY_VIEW);
-			return true;
-		//case R.id.menu_edit_r:
-			//do switch case here, with wreRowId - which is the WRoutineExerciseid query for exercise_id) and use that to switch view
-			//Intent j = new Intent(this, ExerciseRecordEdit.class);
-			//j.putExtra(RecordTable.COLUMN_ID, info.id);
-			//startActivityForResult(j, ACTIVITY_EDIT);
-			//return true;
+
+		case R.id.menu_edit_r:
+				Intent j = new Intent(this, ExerciseRecordEdit.class);
+				j.putExtra(RecordTable.COLUMN_ID, info.id);
+				j.putExtra(ExerciseTable.COLUMN_ID, e_id);
+				startActivityForResult(j, ACTIVITY_EDIT);
+				return true;
+			// do switch case here, with wreRowId - which is the
+			// WRoutineExerciseid query for exercise_id) and use that to switch
+			// view
 		}
 		return super.onContextItemSelected(item);
 	}
 
-
 	public void createRecord() {
-		//switch case is also here
+		// switch case is also here
+		Cursor exercise_id = mDbAdapter.fetchExerciseIDBYWRE(wreRowId);
+		long e_id = exercise_id.getLong(exercise_id.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID));
+		Log.v(TAG, "e_id"+e_id);
 		Intent i = new Intent(this, ExerciseRecordEdit.class);
 		i.putExtra(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);
+		i.putExtra(ExerciseTable.COLUMN_ID, e_id);
 		startActivityForResult(i, ACTIVITY_CREATE);
 	}
-
-
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
@@ -140,7 +163,5 @@ public class ExerciseRecordUI extends ListActivity {
 		super.onActivityResult(requestCode, resultCode, intent);
 		fillData();
 	}
-
-	
 
 }
