@@ -122,9 +122,11 @@ public class ExerciseRecordUI extends ListActivity {
 		switch (item.getItemId()) {
 		case R.id.menu_delete_r:
 			mDbAdapter.deleteRecord(date, wreRowId);
+			c.close();
 			fillData();
 			return true;
 		case R.id.menu_view_r:
+			Log.v(TAG, "ASD");
 			Intent i = new Intent(this, RecordView.class);
 			i.putExtra(RecordTable.COLUMN_ID, info.id);
 			i.putExtra(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);
@@ -133,24 +135,22 @@ public class ExerciseRecordUI extends ListActivity {
 			c.close();
 			startActivityForResult(i, ACTIVITY_VIEW);
 
-		case R.id.menu_edit_r:
+		/*case R.id.menu_edit_r:
+			Log.v(TAG, "boahboah");
 				Intent j = new Intent(this, ExerciseRecordEdit.class);
 				j.putExtra(RecordTable.COLUMN_ID, info.id);
 				j.putExtra(ExerciseTable.COLUMN_ID, e_id);
+				c.close();
+
 				startActivityForResult(j, ACTIVITY_EDIT);
-				return true;
-			// do switch case here, with wreRowId - which is the
-			// WRoutineExerciseid query for exercise_id) and use that to switch
-			// view
+				return true;*/
 		}
 		return super.onContextItemSelected(item);
 	}
 
 	public void createRecord() {
-		// switch case is also here
 		Cursor exercise_id = mDbAdapter.fetchExerciseIDBYWRE(wreRowId);
 		long e_id = exercise_id.getLong(exercise_id.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID));
-		Log.v(TAG, "e_id"+e_id);
 		Intent i = new Intent(this, ExerciseRecordEdit.class);
 		i.putExtra(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);
 		i.putExtra(ExerciseTable.COLUMN_ID, e_id);

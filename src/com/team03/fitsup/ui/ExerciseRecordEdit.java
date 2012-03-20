@@ -57,7 +57,7 @@ public class ExerciseRecordEdit extends Activity {
 			eRowId = extras != null ? extras.getLong(ExerciseTable.COLUMN_ID)
 					: null;
 		}
-		Log.v(TAG, "eRowId"+eRowId);
+		
 		switch (eRowId.intValue()) {
 		case 1:
 		case 2:

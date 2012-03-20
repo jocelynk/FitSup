@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="Date" />
 
-        <EditText
+        <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="Sets" />
 
-        <EditText
+        <TextView
             android:id="@+id/value"
             android:layout_width="50dp"
             android:layout_height="wrap_content" />
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Reps" />
 
-        <EditText
+        <TextView
             android:id="@+id/value2"
             android:layout_width="50dp"
             android:layout_height="wrap_content" />
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:text="Weight" />
 
-        <EditText
+        <TextView
             android:id="@+id/value3"
             android:layout_width="50dp"
             android:layout_height="wrap_content" />
