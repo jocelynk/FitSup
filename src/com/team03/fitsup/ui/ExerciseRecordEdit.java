@@ -121,16 +121,6 @@ public class ExerciseRecordEdit extends Activity {
 		// populateFields();
 	}
 
-	/*
-	 * private void populateFields() { if (mRowId != null) { Cursor workout =
-	 * mDbAdapter.fetchWorkout(mRowId); startManagingCursor(workout);
-	 * mNameText.setText(workout.getString(
-	 * workout.getColumnIndexOrThrow(WorkoutRoutineTable.COLUMN_NAME)));
-	 * mDescriptionText.setText(workout.getString(
-	 * workout.getColumnIndexOrThrow(WorkoutRoutineTable.COLUMN_DESCRIPTION)));
-	 * } }
-	 */
-
 	private void saveState() { // need to write exceptions for formatting errors
 		// switch case statement - later need to get exercise id //create SQL
 		// query or reuse another
@@ -141,24 +131,52 @@ public class ExerciseRecordEdit extends Activity {
 			String minute = mMinuteText.getText().toString();
 			String second = mSecondText.getText().toString();
 			String value = mValueText.getText().toString(); // distance
-			long hr = Long.parseLong(hour);
-			long min = Long.parseLong(minute);
-			long sec = Long.parseLong(second);
-			double savedTime = (hr * 60) + min + (sec / 60);
+			double hr = Double.parseDouble(hour); //need to check this and views to see if number manipulated is what expected, check for double/float formatting
+			double min = Double.parseDouble(minute);
+			double sec = Double.parseDouble(second);
+			double savedTime = (hr * 60.0) + min + (sec / 60.0);
 			double val = Double.parseDouble(value);
 			//time
-			mDbAdapter.createRecord(date, savedTime, 1, wreRowId);
-			//distance
-			mDbAdapter.createRecord(date, val, 2, wreRowId);
+			Cursor c = mDbAdapter.fetchRecord(date, 1, wreRowId);
+			//Cursor d = mDbAdapter.fetchRecord(date, 2, wreRowId); Is this okay? assuming if one value is filled, other is filled too
+			//if(c!=null && c.getCount()>0 && d!=null && d.getCount()>0)
+			if(c!=null && c.getCount()>0) {
+				mDbAdapter.updateRecord(date, savedTime, 1, wreRowId);
+				mDbAdapter.updateRecord(date, val, 2, wreRowId);
+			} else {
+				Log.v(TAG, "NULLNULLNULL");
+				
+				Log.v(TAG, "test for not null row");
+				//time
+				mDbAdapter.createRecord(date, savedTime, 1, wreRowId);
+				//distance
+				mDbAdapter.createRecord(date, val, 2, wreRowId);
+				
+			}
 			break;
 		case 4: case 5: case 6:
 			double set = Double.parseDouble(mSetText.getText().toString());
 			double rep = Double.parseDouble(mRepText.getText().toString());
 			double weight = Double.parseDouble(mWeightText.getText().toString());
+			//FIX: when delete workouts and exercises, need to delete ALL RECORDS FIX THIS!!!!!
+			//create Query that will query for the name of the attribute and take in ExerciseId to replace in createRecord() method
+			Cursor e = mDbAdapter.fetchRecord(date, 6, wreRowId);
 			
-			mDbAdapter.createRecord(date, set, 6, wreRowId);
-			mDbAdapter.createRecord(date, rep, 7, wreRowId);
-			mDbAdapter.createRecord(date, weight, 8, wreRowId);
+			if(e!=null && e.getCount()>0)
+			{
+				mDbAdapter.updateRecord(date, set, 6, wreRowId);
+				mDbAdapter.updateRecord(date, rep, 7, wreRowId);
+				mDbAdapter.updateRecord(date, weight, 8, wreRowId);
+			} else {
+				
+				mDbAdapter.createRecord(date, set, 6, wreRowId);
+				mDbAdapter.createRecord(date, rep, 7, wreRowId);
+				mDbAdapter.createRecord(date, weight, 8, wreRowId);
+			}
+			
+			//calendar implementation?
+			
+			
 
 		}
 	}

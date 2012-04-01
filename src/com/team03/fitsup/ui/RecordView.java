@@ -84,7 +84,6 @@ public class RecordView extends Activity {
 		case 2:
 		case 3:
 			setContentView(R.layout.records_view);
-			Log.v(TAG, "asdfasdf");
 			mDateText = (TextView) findViewById(R.id.date);
 			mValueText = (TextView) findViewById(R.id.value);
 			mHrText = (TextView) findViewById(R.id.hr);
