@@ -9,9 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.team03.fitsup.R;
+import com.team03.fitsup.data.AttributeTable;
 import com.team03.fitsup.data.DatabaseAdapter;
+import com.team03.fitsup.data.ExerciseAttributeTable;
 import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.RecordTable;
+import com.team03.fitsup.data.WorkoutRoutineExerciseTable;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 
 public class ExerciseRecordEdit extends Activity {
@@ -138,15 +141,16 @@ public class ExerciseRecordEdit extends Activity {
 			double val = Double.parseDouble(value);
 			//time
 			Cursor c = mDbAdapter.fetchRecord(date, 1, wreRowId);
+			//Cursor a = mDbAdapter.fetchAttribute("Time");
+			//long a_id = a.getLong(a.getColumnIndexOrThrow(AttributeTable.COLUMN_ID));
+			//Cursor ea = mDbAdapter.fetchExerciseAttribute(a_id, eRowId);
+			//long ea_id = ea.getLong(a.getColumnIndexOrThrow(ExerciseAttributeTable.COLUMN_ID));
 			//Cursor d = mDbAdapter.fetchRecord(date, 2, wreRowId); Is this okay? assuming if one value is filled, other is filled too
 			//if(c!=null && c.getCount()>0 && d!=null && d.getCount()>0)
 			if(c!=null && c.getCount()>0) {
 				mDbAdapter.updateRecord(date, savedTime, 1, wreRowId);
 				mDbAdapter.updateRecord(date, val, 2, wreRowId);
-			} else {
-				Log.v(TAG, "NULLNULLNULL");
-				
-				Log.v(TAG, "test for not null row");
+			} else {				
 				//time
 				mDbAdapter.createRecord(date, savedTime, 1, wreRowId);
 				//distance
@@ -158,7 +162,6 @@ public class ExerciseRecordEdit extends Activity {
 			double set = Double.parseDouble(mSetText.getText().toString());
 			double rep = Double.parseDouble(mRepText.getText().toString());
 			double weight = Double.parseDouble(mWeightText.getText().toString());
-			//FIX: when delete workouts and exercises, need to delete ALL RECORDS FIX THIS!!!!!
 			//create Query that will query for the name of the attribute and take in ExerciseId to replace in createRecord() method
 			Cursor e = mDbAdapter.fetchRecord(date, 6, wreRowId);
 			

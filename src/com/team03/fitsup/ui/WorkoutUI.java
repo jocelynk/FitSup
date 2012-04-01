@@ -1,6 +1,5 @@
 package com.team03.fitsup.ui;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,11 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.team03.fitsup.R;
+import com.team03.fitsup.data.AttributeTable;
 import com.team03.fitsup.data.DatabaseAdapter;
+import com.team03.fitsup.data.RecordTable;
+import com.team03.fitsup.data.WorkoutRoutineExerciseTable;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 
 /*when i do stuff with the GUI, then use getContext(),
@@ -110,10 +111,17 @@ public class WorkoutUI extends ListActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
+		Cursor c = mDbAdapter.fetchWRE(info.id);
+
 		switch (item.getItemId()) {
 		case R.id.menu_delete_wr:
 			mDbAdapter.deleteWorkout(info.id);
 			mDbAdapter.deleteWorkoutExercise(info.id);
+			while (c.isAfterLast() == false) {
+				long rowId = c.getLong(c
+						.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_ID));
+				mDbAdapter.deleteRecordsByWRE(rowId);
+				}
 			fillData();
 			return true;
 		case R.id.menu_view_wr:

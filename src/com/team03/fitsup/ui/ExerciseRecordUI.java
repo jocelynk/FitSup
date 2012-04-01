@@ -126,7 +126,6 @@ public class ExerciseRecordUI extends ListActivity {
 			fillData();
 			return true;
 		case R.id.menu_view_r:
-			Log.v(TAG, "ASD");
 			Intent i = new Intent(this, RecordView.class);
 			i.putExtra(RecordTable.COLUMN_ID, info.id);
 			i.putExtra(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);

@@ -95,7 +95,6 @@ public class RecordView extends Activity {
 		case 5:
 		case 6:
 			setContentView(R.layout.records_view2);
-			Log.v(TAG, "qwefqwegqweg");
 			mDateText = (TextView) findViewById(R.id.date);
 			mSetText = (TextView) findViewById(R.id.value);
 			mRepText = (TextView) findViewById(R.id.value2);
