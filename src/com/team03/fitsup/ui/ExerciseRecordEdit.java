@@ -1,12 +1,18 @@
 package com.team03.fitsup.ui;
 
+import java.util.Calendar;
+
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.AttributeTable;
@@ -18,11 +24,10 @@ import com.team03.fitsup.data.WorkoutRoutineExerciseTable;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 
 public class ExerciseRecordEdit extends Activity {
-	private static final String TAG = "WorkoutRoutineEdit";
+	private static final String TAG = "ExerciseRecordEdit";
 	private static final boolean DEBUG = true;
 
 	private DatabaseAdapter mDbAdapter;
-	private EditText mDateText;
 	private EditText mHourText;
 	private EditText mMinuteText;
 	private EditText mSecondText;
@@ -33,6 +38,19 @@ public class ExerciseRecordEdit extends Activity {
 	private Long wreRowId;
 	private Long eRowId;
 	private Button confirmButton;
+
+	// for the date picker
+
+	private int mYear;
+	private int mMonth;
+	private int mDay;
+
+	private TextView mDateDisplay;
+	private Button mPickDate;
+
+	static final int DATE_DIALOG_ID = 0;
+
+	// end date picker code
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +84,6 @@ public class ExerciseRecordEdit extends Activity {
 		case 2:
 		case 3:
 			setContentView(R.layout.records_edit);
-			mDateText = (EditText) findViewById(R.id.date);
 			mHourText = (EditText) findViewById(R.id.hr);
 			mMinuteText = (EditText) findViewById(R.id.min);
 			mSecondText = (EditText) findViewById(R.id.sec);
@@ -78,7 +95,6 @@ public class ExerciseRecordEdit extends Activity {
 		case 5:
 		case 6:
 			setContentView(R.layout.records_edit2);
-			mDateText = (EditText) findViewById(R.id.date);
 			mSetText = (EditText) findViewById(R.id.value);
 			mRepText = (EditText) findViewById(R.id.value2);
 			mWeightText = (EditText) findViewById(R.id.value3);
@@ -98,6 +114,63 @@ public class ExerciseRecordEdit extends Activity {
 			}
 
 		});
+		
+		mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
+        mPickDate = (Button) findViewById(R.id.pickDate);
+
+		mPickDate.setOnClickListener(new View.OnClickListener() {
+		public void onClick(View v) {
+		showDialog(DATE_DIALOG_ID);
+		}
+		});
+
+		// get the current date
+		final Calendar c = Calendar.getInstance();
+		mYear = c.get(Calendar.YEAR);
+		Log.v(TAG, ""+mYear);
+		mMonth = c.get(Calendar.MONTH);
+		Log.v(TAG, ""+mMonth);
+		mDay = c.get(Calendar.DAY_OF_MONTH);
+		Log.v(TAG, ""+mDay);
+
+		// display the current date
+		updateDisplay();
+	}
+	
+	// date picker helper method
+
+	private void updateDisplay() {
+	this.mDateDisplay.setText(new StringBuilder()
+	// Month is 0 based so add 1
+	.append(mMonth + 1).append("-")
+	.append(mDay).append("-")
+	.append(mYear).append(" "));
+	}
+
+	// date picker helper class
+
+	private DatePickerDialog.OnDateSetListener mDateSetListener =
+	new DatePickerDialog.OnDateSetListener() {
+	public void onDateSet(DatePicker view, int year,
+	int monthOfYear, int dayOfMonth) {
+	mYear = year;
+	mMonth = monthOfYear;
+	mDay = dayOfMonth;
+	updateDisplay();
+	}
+	};
+
+	    // date picker helper method
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+	switch (id) {
+	case DATE_DIALOG_ID:
+	return new DatePickerDialog(this,
+	mDateSetListener,
+	mYear, mMonth, mDay);
+	}
+	return null;
 	}
 
 	@Override
@@ -127,7 +200,8 @@ public class ExerciseRecordEdit extends Activity {
 	private void saveState() { // need to write exceptions for formatting errors
 		// switch case statement - later need to get exercise id //create SQL
 		// query or reuse another
-		String date = mDateText.getText().toString();
+		String date = mDateDisplay.getText().toString();
+		
 		switch (eRowId.intValue()) {
 		case 1: case 2: case 3: //later need to have individual cases for all
 			String hour = mHourText.getText().toString();
