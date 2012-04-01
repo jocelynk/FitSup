@@ -130,7 +130,8 @@ public class RecordView extends Activity {
 						Log.v(TAG, "" + value);
 					double hour = Math.floor(value / 60);
 					double min = Math.floor(((value / 60) - hour) * 60);
-					double sec = ((((value / 60) - hour) * 60) - min) * 60;
+					
+					double sec = Math.round(((((value / 60) - hour) * 60) - min) * 60);
 					mHrText.setText(String.valueOf(hour));
 					mMinText.setText(String.valueOf(min));
 					mSecText.setText(String.valueOf(sec));
