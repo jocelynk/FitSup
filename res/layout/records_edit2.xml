@@ -33,6 +33,7 @@
         <EditText
             android:id="@+id/value"
             android:layout_width="50dp"
+            android:inputType="number"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -55,6 +56,7 @@
         <EditText
             android:id="@+id/value2"
             android:layout_width="50dp"
+            android:inputType="number"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -76,6 +78,7 @@
         <EditText
             android:id="@+id/value3"
             android:layout_width="50dp"
+            android:inputType="numberDecimal"
             android:layout_height="wrap_content" />
 
         <TextView

@@ -13,16 +13,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date" />
-        
-        <TextView android:id="@+id/dateDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""/>
-    	<Button android:id="@+id/pickDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change the date"/>
 
+        <TextView
+            android:id="@+id/dateDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <Button
+            android:id="@+id/pickDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change the date" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,7 +41,9 @@
         <EditText
             android:id="@+id/hr"
             android:layout_width="50dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="2" />
 
         <TextView
             android:id="@+id/hours"
@@ -50,7 +54,9 @@
         <EditText
             android:id="@+id/min"
             android:layout_width="50dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="9" />
 
         <TextView
             android:id="@+id/minutes"
@@ -61,7 +67,9 @@
         <EditText
             android:id="@+id/sec"
             android:layout_width="50dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="9" />
 
         <TextView
             android:id="@+id/seconds"
@@ -84,7 +92,9 @@
         <EditText
             android:id="@+id/value"
             android:layout_width="50dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:maxLength="4" />
 
         <TextView
             android:id="@+id/miles"

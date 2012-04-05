@@ -144,7 +144,7 @@ public class ExerciseRecordEdit extends Activity {
 	// Month is 0 based so add 1
 	.append(mMonth + 1).append("-")
 	.append(mDay).append("-")
-	.append(mYear).append(" "));
+	.append(mYear));
 	}
 
 	// date picker helper class

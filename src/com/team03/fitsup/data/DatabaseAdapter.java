@@ -145,7 +145,7 @@ public class DatabaseAdapter {
 	public Cursor fetchAllRecordAttrByDate(String date, long wreRowId) {
 
 		return mDb.query(RecordTable.TABLE_RECORD, new String[] {
-				RecordTable.COLUMN_ID, RecordTable.COLUMN_DATE,
+				RecordTable.COLUMN_ID,
 				RecordTable.COLUMN_VALUE }, RecordTable.COLUMN_WRKT_RTNE_E_ID
 				+ " = ? AND " + RecordTable.COLUMN_DATE + " = ? ",
 				new String[] { String.valueOf(wreRowId), date }, null, null,

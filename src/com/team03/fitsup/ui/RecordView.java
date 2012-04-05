@@ -29,7 +29,7 @@ public class RecordView extends Activity {
 	private TextView mSetText;
 	private TextView mRepText;
 	private TextView mWeightText;
-	private Long mRowId;
+	// private Long mRowId;
 	private Long wreRowId;
 	private Long eRowId;
 	private String date;
@@ -43,15 +43,6 @@ public class RecordView extends Activity {
 		mDbAdapter = new DatabaseAdapter(getApplicationContext());
 		mDbAdapter.open();
 
-		mRowId = (savedInstanceState == null) ? null
-				: (Long) savedInstanceState
-						.getSerializable(RecordTable.COLUMN_ID);
-		if (mRowId == null) {
-			Bundle extras = getIntent().getExtras();
-			mRowId = extras != null ? extras.getLong(RecordTable.COLUMN_ID)
-					: null;
-		}
-
 		date = (savedInstanceState == null) ? null
 				: (String) savedInstanceState
 						.getSerializable(RecordTable.COLUMN_DATE);
@@ -60,6 +51,7 @@ public class RecordView extends Activity {
 			date = extras != null ? extras.getString(RecordTable.COLUMN_DATE)
 					: null;
 		}
+		Log.v(TAG, "" + date);
 
 		wreRowId = (savedInstanceState == null) ? null
 				: (Long) savedInstanceState
@@ -69,6 +61,7 @@ public class RecordView extends Activity {
 			wreRowId = extras != null ? extras
 					.getLong(RecordTable.COLUMN_WRKT_RTNE_E_ID) : null;
 		}
+		Log.v(TAG, "" + wreRowId);
 
 		eRowId = (savedInstanceState == null) ? null
 				: (Long) savedInstanceState
@@ -78,27 +71,46 @@ public class RecordView extends Activity {
 			eRowId = extras != null ? extras.getLong(ExerciseTable.COLUMN_ID)
 					: null;
 		}
+		Log.v(TAG, "" + eRowId);
+
+		Cursor records = mDbAdapter.fetchAllRecordAttrByDate(date, wreRowId);
+		startManagingCursor(records);
+		if (records != null) {
+			records.moveToFirst();
+		}
+		if (records.getCount() == 0) {
+			Log.v(TAG, "greater than 0");
+		}
 
 		switch (eRowId.intValue()) {
 		case 1:
 		case 2:
 		case 3:
-			setContentView(R.layout.test);
-			mDateText = (TextView) findViewById(R.id.date);
-			mValueText = (TextView) findViewById(R.id.value);
-			mHrText = (TextView) findViewById(R.id.hr);
-			mMinText = (TextView) findViewById(R.id.min);
-			mSecText = (TextView) findViewById(R.id.sec);
+			if (records.getCount() > 0) {
+				setContentView(R.layout.test);
+				mDateText = (TextView) findViewById(R.id.date);
+				mValueText = (TextView) findViewById(R.id.value);
+				mHrText = (TextView) findViewById(R.id.hr);
+				mMinText = (TextView) findViewById(R.id.min);
+				mSecText = (TextView) findViewById(R.id.sec);
+			} else {
+				setContentView(R.layout.no_records);
+			}
 
 			break;
 		case 4:
 		case 5:
 		case 6:
-			setContentView(R.layout.records_view2);
-			mDateText = (TextView) findViewById(R.id.date);
-			mSetText = (TextView) findViewById(R.id.value);
-			mRepText = (TextView) findViewById(R.id.value2);
-			mWeightText = (TextView) findViewById(R.id.value3);
+			if (records.getCount() > 0) {
+				setContentView(R.layout.records_view2);
+				mDateText = (TextView) findViewById(R.id.date);
+				mSetText = (TextView) findViewById(R.id.value);
+				mRepText = (TextView) findViewById(R.id.value2);
+				mWeightText = (TextView) findViewById(R.id.value3);
+			} else {
+				setContentView(R.layout.no_records);
+			}
+
 			break;
 
 		}
@@ -116,68 +128,74 @@ public class RecordView extends Activity {
 		case 1:
 		case 2:
 		case 3:
-			while (records.isAfterLast() == false) {
-				long rowId = records.getLong(records
-						.getColumnIndexOrThrow(RecordTable.COLUMN_ID));
-				Cursor record = mDbAdapter.fetchAttributeOfRecord(rowId);
-				String attribute = record.getString(record
-						.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
-				if (attribute.equals("Time")) {
-					// fix this later
-					double value = records.getDouble(records
-							.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
-					if (DEBUG)
-						Log.v(TAG, "" + value);
-					double hour = Math.floor(value / 60);
-					double min = Math.floor(((value / 60) - hour) * 60);
-					
-					double sec = Math.round(((((value / 60) - hour) * 60) - min) * 60);
-					mHrText.setText(String.valueOf(hour));
-					mMinText.setText(String.valueOf(min));
-					mSecText.setText(String.valueOf(sec));
-					record.close();
+			if (records.getCount() > 0) {
+				while (records.isAfterLast() == false) {
+					long rowId = records.getLong(records
+							.getColumnIndexOrThrow(RecordTable.COLUMN_ID));
+					Cursor record = mDbAdapter.fetchAttributeOfRecord(rowId);
+					String attribute = record.getString(record
+							.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
+					if (attribute.equals("Time")) {
+						// fix this later
+						double value = records
+								.getDouble(records
+										.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
+						if (DEBUG)
+							Log.v(TAG, "" + value);
+						int hour = (int) Math.floor(value / 60);
+						int min = (int) Math.floor(((value / 60) - hour) * 60);
 
-				} else {
-					mValueText.setText(records.getString(records
-							.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE)));
-					record.close();
+						int sec = (int) Math
+								.round(((((value / 60) - hour) * 60) - min) * 60);
+						mHrText.setText(String.valueOf(hour));
+						mMinText.setText(String.valueOf(min));
+						mSecText.setText(String.valueOf(sec));
+						record.close();
+
+					} else {
+						mValueText
+								.setText(records.getString(records
+										.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE)));
+						record.close();
+					}
+					records.moveToNext();
 				}
-				records.moveToNext();
+				mDateText.setText(date);
 			}
 			records.close();
-
 			break;
 		case 4:
 		case 5:
 		case 6:
-			while (records.isAfterLast() == false) {
-				long rowId = records.getLong(records
-						.getColumnIndexOrThrow(RecordTable.COLUMN_ID));
-				Cursor record = mDbAdapter.fetchAttributeOfRecord(rowId);
-				String attribute = record.getString(record
-						.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
-				String value = records.getString(records
-						.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
-				if (attribute.equals("Set")) {
-					mSetText.setText(value);
-					record.close();
+			if (records.getCount() > 0) {
+				while (records.isAfterLast() == false) {
+					long rowId = records.getLong(records
+							.getColumnIndexOrThrow(RecordTable.COLUMN_ID));
+					Cursor record = mDbAdapter.fetchAttributeOfRecord(rowId);
+					String attribute = record.getString(record
+							.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
+					int value = records.getInt(records
+							.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
+					if (attribute.equals("Set")) {
+						mSetText.setText(value);
+						record.close();
 
-				} else if (attribute.equals("Reps")) {
-					mRepText.setText(value);
-					record.close();
-				} else {
-					mWeightText.setText(value);
-					record.close();
+					} else if (attribute.equals("Reps")) {
+						mRepText.setText(value);
+						record.close();
+					} else {
+						mWeightText.setText(value);
+						record.close();
+					}
+					records.moveToNext();
 				}
-				records.moveToNext();
+				mDateText.setText(date);
 			}
 			records.close();
-
 			break;
 
 		}
 
-		mDateText.setText(date);
 	}
 
 }
