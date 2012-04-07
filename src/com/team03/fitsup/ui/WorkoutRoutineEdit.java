@@ -145,5 +145,6 @@ public class WorkoutRoutineEdit extends Activity {
         	mDbAdapter.updateWorkout(mRowId, name, description);
         }
     }
+    
     	
 }

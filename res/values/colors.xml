@@ -6,7 +6,7 @@
 		name="white">#FFFFFF</color>
 	<color
 		name="black">#000000</color>
-		
+	<color name = "blue">#00CCFF</color>
 	<color
 		name="symptom_color_selected">#003366</color>
 		

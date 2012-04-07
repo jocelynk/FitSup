@@ -115,13 +115,16 @@ public class WorkoutUI extends ListActivity {
 
 		switch (item.getItemId()) {
 		case R.id.menu_delete_wr:
-			mDbAdapter.deleteWorkout(info.id);
+			mDbAdapter.deleteRecordByWR(info.id);
 			mDbAdapter.deleteWorkoutExercise(info.id);
-			while (c.isAfterLast() == false) {
+			mDbAdapter.deleteWorkout(info.id);
+
+			/*while (c.isAfterLast() == false) {
+				Log.v(TAG, "Infinite loop");
 				long rowId = c.getLong(c
 						.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_ID));
 				mDbAdapter.deleteRecordsByWRE(rowId);
-				}
+				}*/
 			fillData();
 			return true;
 		case R.id.menu_view_wr:
@@ -183,6 +186,14 @@ public class WorkoutUI extends ListActivity {
 		super.onActivityResult(requestCode, resultCode, intent);
 		fillData();
 	}
+	
+	public void onDestroy()
+	{
+		Log.d(TAG, "Destroying View ...");
+		mDbAdapter.close();
+		super.onDestroy();
+	}
+
 
 	/*
 	 * @Override protected void onActivityResult(int requestCode, int

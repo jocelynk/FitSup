@@ -1,9 +1,12 @@
 package com.team03.fitsup.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +16,16 @@ import com.team03.fitsup.data.AttributeTable;
 import com.team03.fitsup.data.DatabaseAdapter;
 import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.RecordTable;
+import com.team03.fitsup.data.WorkoutRoutineTable;
 
 //Needs a lot of thinking and work
 public class RecordView extends Activity {
 
 	private static final String TAG = "RecordView";
 	private static final boolean DEBUG = true;
+	private static final int ACTIVITY_DELETE = 0;
+
+	private static final int DELETE_ID = Menu.FIRST;
 
 	private DatabaseAdapter mDbAdapter;
 	private TextView mDateText;
@@ -116,6 +123,32 @@ public class RecordView extends Activity {
 		}
 		populateFields();
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		menu.add(0, DELETE_ID, 0, R.string.menu_delete_r);
+		return true;
+	}
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch (item.getItemId()) {
+		case DELETE_ID:
+			// deleteRecord();
+			mDbAdapter.deleteRecord(date, wreRowId);
+			finish();
+			return true;
+		}
+
+		return super.onMenuItemSelected(featureId, item);
+	}
+
+	private void deleteRecord() {
+
+		Intent i = new Intent(this, WorkoutRoutineEdit.class);
+		startActivityForResult(i, ACTIVITY_DELETE);
 	}
 
 	private void populateFields() {

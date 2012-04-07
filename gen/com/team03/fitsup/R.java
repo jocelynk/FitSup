@@ -12,11 +12,12 @@ public final class R {
     }
     public static final class color {
         public static final int black=0x7f040001;
-        public static final int journal_entry_listitem_text_color=0x7f040005;
-        public static final int note_text_disabled=0x7f040006;
-        public static final int reaction_color_selected=0x7f040003;
-        public static final int static_text_color=0x7f040004;
-        public static final int symptom_color_selected=0x7f040002;
+        public static final int blue=0x7f040002;
+        public static final int journal_entry_listitem_text_color=0x7f040006;
+        public static final int note_text_disabled=0x7f040007;
+        public static final int reaction_color_selected=0x7f040004;
+        public static final int static_text_color=0x7f040005;
+        public static final int symptom_color_selected=0x7f040003;
         public static final int white=0x7f040000;
     }
     public static final class drawable {
@@ -40,8 +41,9 @@ public final class R {
         public static final int ic_tab_artists_grey=0x7f020011;
         public static final int ic_tab_artists_white=0x7f020012;
         public static final int icon=0x7f020013;
-        public static final int running=0x7f020014;
-        public static final int tabs_workouts=0x7f020015;
+        public static final int rounded_corners_white=0x7f020014;
+        public static final int running=0x7f020015;
+        public static final int tabs_workouts=0x7f020016;
     }
     public static final class id {
         public static final int calendar=0x7f08001d;
