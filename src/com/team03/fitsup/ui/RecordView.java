@@ -36,10 +36,12 @@ public class RecordView extends Activity {
 	private TextView mSetText;
 	private TextView mRepText;
 	private TextView mWeightText;
+	private TextView mNameText;
 	// private Long mRowId;
 	private Long wreRowId;
 	private Long eRowId;
 	private String date;
+	private String name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,15 @@ public class RecordView extends Activity {
 			date = extras != null ? extras.getString(RecordTable.COLUMN_DATE)
 					: null;
 		}
-		Log.v(TAG, "" + date);
+		
+		name = (savedInstanceState == null) ? null
+				: (String) savedInstanceState
+						.getSerializable(ExerciseTable.COLUMN_NAME);
+		if (name == null) {
+			Bundle extras = getIntent().getExtras();
+			name = extras != null ? extras.getString(ExerciseTable.COLUMN_NAME)
+					: null;
+		}
 
 		wreRowId = (savedInstanceState == null) ? null
 				: (Long) savedInstanceState
@@ -94,7 +104,8 @@ public class RecordView extends Activity {
 		case 2:
 		case 3:
 			if (records.getCount() > 0) {
-				setContentView(R.layout.test);
+				setContentView(R.layout.cardio_view);
+				mNameText = (TextView) findViewById(R.id.exercise_name);
 				mDateText = (TextView) findViewById(R.id.date);
 				mValueText = (TextView) findViewById(R.id.value);
 				mHrText = (TextView) findViewById(R.id.hr);
@@ -109,7 +120,8 @@ public class RecordView extends Activity {
 		case 5:
 		case 6:
 			if (records.getCount() > 0) {
-				setContentView(R.layout.records_view2);
+				setContentView(R.layout.strength);
+				mNameText = (TextView) findViewById(R.id.exercise_name);
 				mDateText = (TextView) findViewById(R.id.date);
 				mSetText = (TextView) findViewById(R.id.value);
 				mRepText = (TextView) findViewById(R.id.value2);
@@ -136,7 +148,6 @@ public class RecordView extends Activity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
 		case DELETE_ID:
-			// deleteRecord();
 			mDbAdapter.deleteRecord(date, wreRowId);
 			finish();
 			return true;
@@ -145,11 +156,6 @@ public class RecordView extends Activity {
 		return super.onMenuItemSelected(featureId, item);
 	}
 
-	private void deleteRecord() {
-
-		Intent i = new Intent(this, WorkoutRoutineEdit.class);
-		startActivityForResult(i, ACTIVITY_DELETE);
-	}
 
 	private void populateFields() {
 		Cursor records = mDbAdapter.fetchAllRecordAttrByDate(date, wreRowId);
@@ -194,6 +200,7 @@ public class RecordView extends Activity {
 					records.moveToNext();
 				}
 				mDateText.setText(date);
+				mNameText.setText(name);
 			}
 			records.close();
 			break;
@@ -223,6 +230,8 @@ public class RecordView extends Activity {
 					records.moveToNext();
 				}
 				mDateText.setText(date);
+				mNameText.setText(name);
+
 			}
 			records.close();
 			break;

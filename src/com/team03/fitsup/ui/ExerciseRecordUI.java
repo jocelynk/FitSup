@@ -157,6 +157,7 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 		Intent i = new Intent(this, ExerciseRecordEdit.class);
 		i.putExtra(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);
 		i.putExtra(ExerciseTable.COLUMN_ID, e_id);
+		exercise_id.close();
 		startActivityForResult(i, ACTIVITY_CREATE);
 	}
 
@@ -524,14 +525,19 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 					.getTag(R.id.calendar_day_gridcell);
 			String month_date_year = (String) view.getTag(R.id.intMonth);
 			selectedDayMonthYearButton.setText("Selected: " + date_month_year);
-			Cursor exercise_id = mDbAdapter.fetchExerciseIDBYWRE(wreRowId);
+			Cursor exercise_id = mDbAdapter.fetchExercisebyWRE(wreRowId);
+			
+			String name = exercise_id.getString(exercise_id.getColumnIndexOrThrow(ExerciseTable.COLUMN_NAME));
+			for (String col : exercise_id.getColumnNames()) Log.v(TAG, col);
+
 			long e_id = exercise_id
-					.getLong(exercise_id
-							.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID));
+			.getLong(exercise_id
+					.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID));
 			Intent i = new Intent(getBaseContext(), RecordView.class);
 			i.putExtra(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);
 			i.putExtra(RecordTable.COLUMN_DATE, month_date_year);
 			i.putExtra(ExerciseTable.COLUMN_ID, e_id);
+			i.putExtra(ExerciseTable.COLUMN_NAME, name);
 			startActivityForResult(i, ACTIVITY_VIEW);
 
 		}

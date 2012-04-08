@@ -223,18 +223,15 @@ public class DatabaseAdapter {
 	// ++++WorkoutRoutineExercise Queries++++
 
 	public Cursor fetchExercisebyWRE(long wreId) {
-		String eQuery = "SELECT Exercises." + ExerciseTable.COLUMN_ID
+		String eQuery = "SELECT Exercises." + ExerciseTable.COLUMN_NAME + ", WorkoutRoutineExercises." + WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID
 				+ " FROM "
-				+ WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE
-				+ " JOIN " + RecordTable.TABLE_RECORD
-				+ " ON WorkoutRoutineExercises."
-				+ WorkoutRoutineExerciseTable.COLUMN_ID + " = "
-				+ RecordTable.COLUMN_WRKT_RTNE_E_ID + " JOIN "
-				+ ExerciseTable.TABLE_EXERCISE + " ON Exercises."
-				+ ExerciseTable.COLUMN_ID + " = "
-				+ WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID + " WHERE "
+				+ ExerciseTable.TABLE_EXERCISE + " JOIN " + WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE + " ON Exercises."
+				+ ExerciseTable.COLUMN_ID + " = WorkoutRoutineExercises." + WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID
+				+ " JOIN " + RecordTable.TABLE_RECORD + " ON WorkoutRoutineExercises." + WorkoutRoutineExerciseTable.COLUMN_ID + " = Records."
+				+ RecordTable.COLUMN_WRKT_RTNE_E_ID  + " WHERE "
 				+ RecordTable.COLUMN_WRKT_RTNE_E_ID + " = ? GROUP BY "
 				+ RecordTable.COLUMN_WRKT_RTNE_E_ID;
+				
 		Cursor mCursor = mDb.rawQuery(eQuery,
 				new String[] { String.valueOf(wreId) });
 
