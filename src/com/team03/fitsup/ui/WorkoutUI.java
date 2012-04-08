@@ -10,6 +10,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.SimpleCursorAdapter;
 
@@ -39,7 +40,6 @@ public class WorkoutUI extends ListActivity {
 	private static final int ACTIVITY_EDIT = 2;
 
 	private static final int INSERT_ID = Menu.FIRST;
-	//private static final int DELETE_ID = Menu.FIRST + 1;
 
 	private DatabaseAdapter mDbAdapter;
 
@@ -49,8 +49,8 @@ public class WorkoutUI extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.workouts_index);
-		
 		Log.v(TAG, "+++ ON CREATE +++");
 
 		mDbAdapter = new DatabaseAdapter(getApplicationContext());
@@ -119,12 +119,12 @@ public class WorkoutUI extends ListActivity {
 			mDbAdapter.deleteWorkoutExercise(info.id);
 			mDbAdapter.deleteWorkout(info.id);
 
-			/*while (c.isAfterLast() == false) {
-				Log.v(TAG, "Infinite loop");
-				long rowId = c.getLong(c
-						.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_ID));
-				mDbAdapter.deleteRecordsByWRE(rowId);
-				}*/
+			/*
+			 * while (c.isAfterLast() == false) { Log.v(TAG, "Infinite loop");
+			 * long rowId = c.getLong(c
+			 * .getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_ID));
+			 * mDbAdapter.deleteRecordsByWRE(rowId); }
+			 */
 			fillData();
 			return true;
 		case R.id.menu_view_wr:
@@ -186,14 +186,12 @@ public class WorkoutUI extends ListActivity {
 		super.onActivityResult(requestCode, resultCode, intent);
 		fillData();
 	}
-	
-	public void onDestroy()
-	{
+
+	public void onDestroy() {
 		Log.d(TAG, "Destroying View ...");
 		mDbAdapter.close();
 		super.onDestroy();
 	}
-
 
 	/*
 	 * @Override protected void onActivityResult(int requestCode, int

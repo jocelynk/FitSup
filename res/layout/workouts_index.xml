@@ -3,31 +3,61 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
- <TextView
+
+    <!-- Header Starts -->
+
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Workout Routines"
-        android:textSize="25dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:background="@color/blue"/>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="75dp"
-    android:layout_marginLeft="15dp"
-    android:layout_marginBottom="15dp"
-    android:layout_marginRight="15dp"
-    android:background="@drawable/rounded_corners_white">
+        android:background="@layout/header_gradient"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip" >
 
-  <ListView android:id="@android:id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-  <TextView android:id="@android:id/empty"
+        <!-- Logo Start -->
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+        <!-- Logo Ends -->
+    </LinearLayout>
+    <!-- Header Ends -->
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/listview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_workouts"/>
+        android:layout_below="@id/header"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_corners_white" >
 
-</LinearLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@layout/header_gradient"
+            android:text="Workout Routines"
+             android:textColor="#000000"
+            android:gravity="center"
+            android:textSize="25dp" />
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_workouts" />
+    </LinearLayout>
+
 </RelativeLayout>

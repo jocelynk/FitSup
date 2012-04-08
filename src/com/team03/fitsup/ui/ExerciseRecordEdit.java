@@ -7,12 +7,14 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.AttributeTable;
@@ -78,7 +80,7 @@ public class ExerciseRecordEdit extends Activity {
 			eRowId = extras != null ? extras.getLong(ExerciseTable.COLUMN_ID)
 					: null;
 		}
-		
+
 		switch (eRowId.intValue()) {
 		case 1:
 		case 2:
@@ -114,63 +116,60 @@ public class ExerciseRecordEdit extends Activity {
 			}
 
 		});
-		
+
 		mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
-        mPickDate = (Button) findViewById(R.id.pickDate);
+		mPickDate = (Button) findViewById(R.id.pickDate);
 
 		mPickDate.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View v) {
-		showDialog(DATE_DIALOG_ID);
-		}
+			public void onClick(View v) {
+				showDialog(DATE_DIALOG_ID);
+			}
 		});
 
 		// get the current date
 		final Calendar c = Calendar.getInstance();
 		mYear = c.get(Calendar.YEAR);
-		Log.v(TAG, ""+mYear);
+		Log.v(TAG, "" + mYear);
 		mMonth = c.get(Calendar.MONTH);
-		Log.v(TAG, ""+mMonth);
+		Log.v(TAG, "" + mMonth);
 		mDay = c.get(Calendar.DAY_OF_MONTH);
-		Log.v(TAG, ""+mDay);
+		Log.v(TAG, "" + mDay);
 
 		// display the current date
 		updateDisplay();
 	}
-	
+
 	// date picker helper method
 
 	private void updateDisplay() {
-	this.mDateDisplay.setText(new StringBuilder()
-	// Month is 0 based so add 1
-	.append(mMonth + 1).append("-")
-	.append(mDay).append("-")
-	.append(mYear));
+		this.mDateDisplay.setText(new StringBuilder()
+				// Month is 0 based so add 1
+				.append(mMonth + 1).append("-").append(mDay).append("-")
+				.append(mYear));
 	}
 
 	// date picker helper class
 
-	private DatePickerDialog.OnDateSetListener mDateSetListener =
-	new DatePickerDialog.OnDateSetListener() {
-	public void onDateSet(DatePicker view, int year,
-	int monthOfYear, int dayOfMonth) {
-	mYear = year;
-	mMonth = monthOfYear;
-	mDay = dayOfMonth;
-	updateDisplay();
-	}
+	private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+		public void onDateSet(DatePicker view, int year, int monthOfYear,
+				int dayOfMonth) {
+			mYear = year;
+			mMonth = monthOfYear;
+			mDay = dayOfMonth;
+			updateDisplay();
+		}
 	};
 
-	    // date picker helper method
+	// date picker helper method
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
-	switch (id) {
-	case DATE_DIALOG_ID:
-	return new DatePickerDialog(this,
-	mDateSetListener,
-	mYear, mMonth, mDay);
-	}
-	return null;
+		switch (id) {
+		case DATE_DIALOG_ID:
+			return new DatePickerDialog(this, mDateSetListener, mYear, mMonth,
+					mDay);
+		}
+		return null;
 	}
 
 	@Override
@@ -178,7 +177,15 @@ public class ExerciseRecordEdit extends Activity {
 		super.onSaveInstanceState(outState);
 		if (DEBUG)
 			Log.v(TAG, "ON SAVED INSTANCE STATE");
+
 		saveState();
+
+		// Toast.makeText(
+
+		// getApplicationContext(), "Please enter in the record." ,
+		// Toast.LENGTH_LONG).show();
+
+		// }
 		outState.putSerializable(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);
 	}
 
@@ -187,7 +194,9 @@ public class ExerciseRecordEdit extends Activity {
 		super.onPause();
 		if (DEBUG)
 			Log.v(TAG, "+ ON PAUSE +");
+
 		saveState();
+
 	}
 
 	@Override
@@ -201,59 +210,82 @@ public class ExerciseRecordEdit extends Activity {
 		// switch case statement - later need to get exercise id //create SQL
 		// query or reuse another
 		String date = mDateDisplay.getText().toString();
-		
+
 		switch (eRowId.intValue()) {
-		case 1: case 2: case 3: //later need to have individual cases for all
+		case 1:
+		case 2:
+		case 3: // later need to have individual cases for all
 			String hour = mHourText.getText().toString();
 			String minute = mMinuteText.getText().toString();
 			String second = mSecondText.getText().toString();
 			String value = mValueText.getText().toString(); // distance
-			double hr = Double.parseDouble(hour); //need to check this and views to see if number manipulated is what expected, check for double/float formatting
-			double min = Double.parseDouble(minute);
-			double sec = Double.parseDouble(second);
-			double savedTime = (hr * 60.0) + min + (sec / 60.0);
-			double val = Double.parseDouble(value);
-			//time
+
+			double hr = !TextUtils.isEmpty(hour) ? Double.parseDouble(hour) : 0;
+			double min = !TextUtils.isEmpty(minute) ? Double
+					.parseDouble(minute) : 0;
+			double sec = !TextUtils.isEmpty(second) ? Double
+					.parseDouble(second) : 0;
+
+			double savedTime = (hr == 0.0 && min == 0.0 && sec == 0.0) ? -1
+					: ((hr * 60.0) + min + (sec / 60.0));
+			double val = !TextUtils.isEmpty(value) ? Double.parseDouble(value)
+					: -1;
+			// time
 			Cursor c = mDbAdapter.fetchRecord(date, 1, wreRowId);
-			//Cursor a = mDbAdapter.fetchAttribute("Time");
-			//long a_id = a.getLong(a.getColumnIndexOrThrow(AttributeTable.COLUMN_ID));
-			//Cursor ea = mDbAdapter.fetchExerciseAttribute(a_id, eRowId);
-			//long ea_id = ea.getLong(a.getColumnIndexOrThrow(ExerciseAttributeTable.COLUMN_ID));
-			//Cursor d = mDbAdapter.fetchRecord(date, 2, wreRowId); Is this okay? assuming if one value is filled, other is filled too
-			//if(c!=null && c.getCount()>0 && d!=null && d.getCount()>0)
-			if(c!=null && c.getCount()>0) {
-				mDbAdapter.updateRecord(date, savedTime, 1, wreRowId);
-				mDbAdapter.updateRecord(date, val, 2, wreRowId);
-			} else {				
-				//time
-				mDbAdapter.createRecord(date, savedTime, 1, wreRowId);
-				//distance
-				mDbAdapter.createRecord(date, val, 2, wreRowId);
-				
+			// Cursor a = mDbAdapter.fetchAttribute("Time");
+			// long a_id =
+			// a.getLong(a.getColumnIndexOrThrow(AttributeTable.COLUMN_ID));
+			// Cursor ea = mDbAdapter.fetchExerciseAttribute(a_id, eRowId);
+			// long ea_id =
+			// ea.getLong(a.getColumnIndexOrThrow(ExerciseAttributeTable.COLUMN_ID));
+			// Cursor d = mDbAdapter.fetchRecord(date, 2, wreRowId); Is this
+			// okay? assuming if one value is filled, other is filled too
+			// if(c!=null && c.getCount()>0 && d!=null && d.getCount()>0)
+			if (c != null && c.getCount() > 0) {
+				if (savedTime != -1 && val != -1) {
+					mDbAdapter.updateRecord(date, savedTime, 1, wreRowId);
+					mDbAdapter.updateRecord(date, val, 2, wreRowId);
+				}
+			} else {
+				if (savedTime != -1 && val != -1) {
+					// time
+					mDbAdapter.createRecord(date, savedTime, 1, wreRowId);
+					// distance
+					mDbAdapter.createRecord(date, val, 2, wreRowId);
+				}
 			}
 			break;
-		case 4: case 5: case 6:
-			double set = Double.parseDouble(mSetText.getText().toString());
-			double rep = Double.parseDouble(mRepText.getText().toString());
-			double weight = Double.parseDouble(mWeightText.getText().toString());
-			//create Query that will query for the name of the attribute and take in ExerciseId to replace in createRecord() method
+
+		case 4:
+		case 5:
+		case 6:
+			String setString = mSetText.getText().toString();
+			String repString = mRepText.getText().toString();
+			String weightString = mWeightText.getText().toString();
+			double set = !TextUtils.isEmpty(setString) ? Double
+					.parseDouble(setString) : -1;
+			double rep = !TextUtils.isEmpty(repString) ? Double
+					.parseDouble(repString) : -1;
+			double weight = !TextUtils.isEmpty(weightString) ? Double
+					.parseDouble(weightString) : -1;
+			// create Query that will query for the name of the attribute
+			// and take in ExerciseId to replace in createRecord() method
 			Cursor e = mDbAdapter.fetchRecord(date, 6, wreRowId);
-			
-			if(e!=null && e.getCount()>0)
-			{
-				mDbAdapter.updateRecord(date, set, 6, wreRowId);
-				mDbAdapter.updateRecord(date, rep, 7, wreRowId);
-				mDbAdapter.updateRecord(date, weight, 8, wreRowId);
+
+			if (e != null && e.getCount() > 0) {
+				if (set != -1 && rep != -1 && weight != -1) {
+					mDbAdapter.updateRecord(date, set, 6, wreRowId);
+					mDbAdapter.updateRecord(date, rep, 7, wreRowId);
+					mDbAdapter.updateRecord(date, weight, 8, wreRowId);
+				}
 			} else {
-				
-				mDbAdapter.createRecord(date, set, 6, wreRowId);
-				mDbAdapter.createRecord(date, rep, 7, wreRowId);
-				mDbAdapter.createRecord(date, weight, 8, wreRowId);
+				if (set != -1 && rep != -1 && weight != -1) {
+
+					mDbAdapter.createRecord(date, set, 6, wreRowId);
+					mDbAdapter.createRecord(date, rep, 7, wreRowId);
+					mDbAdapter.createRecord(date, weight, 8, wreRowId);
+				}
 			}
-			
-			//calendar implementation?
-			
-			
 
 		}
 	}

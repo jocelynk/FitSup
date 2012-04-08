@@ -210,14 +210,14 @@ public class RecordView extends Activity {
 					int value = records.getInt(records
 							.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
 					if (attribute.equals("Set")) {
-						mSetText.setText(value);
+						mSetText.setText(String.valueOf(value));
 						record.close();
 
 					} else if (attribute.equals("Reps")) {
-						mRepText.setText(value);
+						mRepText.setText(String.valueOf(value));
 						record.close();
 					} else {
-						mWeightText.setText(value);
+						mWeightText.setText(String.valueOf(value));
 						record.close();
 					}
 					records.moveToNext();
