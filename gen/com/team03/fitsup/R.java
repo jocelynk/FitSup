@@ -106,18 +106,17 @@ public final class R {
         public static final int exercises_row=0x7f030004;
         public static final int header_gradient=0x7f030005;
         public static final int jumprope=0x7f030006;
-        public static final int main=0x7f030007;
-        public static final int no_records=0x7f030008;
-        public static final int records_by_exercise_index=0x7f030009;
-        public static final int records_edit=0x7f03000a;
-        public static final int records_edit2=0x7f03000b;
-        public static final int records_row=0x7f03000c;
-        public static final int simple_calendar_view=0x7f03000d;
-        public static final int strength=0x7f03000e;
-        public static final int workouts_edit=0x7f03000f;
-        public static final int workouts_index=0x7f030010;
-        public static final int workouts_options=0x7f030011;
-        public static final int workouts_row=0x7f030012;
+        public static final int no_records=0x7f030007;
+        public static final int records_by_exercise_index=0x7f030008;
+        public static final int records_edit=0x7f030009;
+        public static final int records_edit2=0x7f03000a;
+        public static final int records_row=0x7f03000b;
+        public static final int simple_calendar_view=0x7f03000c;
+        public static final int strength=0x7f03000d;
+        public static final int workouts_edit=0x7f03000e;
+        public static final int workouts_index=0x7f03000f;
+        public static final int workouts_options=0x7f030010;
+        public static final int workouts_row=0x7f030011;
     }
     public static final class menu {
         public static final int record_context_menu=0x7f070000;
