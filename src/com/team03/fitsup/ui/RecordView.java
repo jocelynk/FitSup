@@ -95,9 +95,6 @@ public class RecordView extends Activity {
 		if (records != null) {
 			records.moveToFirst();
 		}
-		if (records.getCount() == 0) {
-			Log.v(TAG, "greater than 0");
-		}
 
 		switch (eRowId.intValue()) {
 		case 1:

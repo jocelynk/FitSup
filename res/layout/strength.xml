@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/exercise_img"
-        android:textSize="48px" />
+        android:textSize="36dp" />
 
     <include layout="@layout/date" />
     
@@ -37,7 +37,7 @@
             android:layout_below="@+id/value"
             android:paddingLeft="5dp"
             android:text="Sets: "
-            android:textSize="32px" />
+            android:textSize="24dp" />
 
         <TextView
             android:id="@+id/value"
@@ -45,13 +45,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/value"
             android:layout_marginRight="10dp"
-            android:textSize="32px" />
+            android:textSize="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reps: "
-            android:textSize="32px" />
+            android:textSize="24dp" />
 
         <TextView
             android:id="@+id/value2"
@@ -59,13 +59,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/value2"
             android:layout_marginRight="10dp"
-            android:textSize="32px" />
+            android:textSize="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Weight: "
-            android:textSize="32px" />
+            android:textSize="24dp" />
 
         <TextView
             android:id="@+id/value3"
@@ -73,13 +73,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/value3"
             android:paddingRight="5dp"
-            android:textSize="32px" />
+            android:textSize="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="lbs"
-            android:textSize="32px" />
+            android:textSize="24dp" />
     </LinearLayout>
 
 </RelativeLayout>

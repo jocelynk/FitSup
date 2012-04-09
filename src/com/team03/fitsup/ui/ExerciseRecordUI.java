@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -122,6 +123,14 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 	 * @param month
 	 * @param year
 	 */
+	
+	protected void onResume() {
+		super.onResume();
+		Log.v(TAG, "+ ON RESUME +");
+		setGridCellAdapterToDate(month, year);
+		
+	}
+
 	private void setGridCellAdapterToDate(int month, int year) {
 		adapter = new GridCellAdapter(getApplicationContext(),
 				R.id.calendar_day_gridcell, month, year);
@@ -384,12 +393,27 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 						+ "-"
 						+ prevYear);
 			}
+			
+			Time today = new Time(Time.getCurrentTimezone());
+			today.setToNow();
 
+			
 			// Current Month Days
 			for (int i = 1; i <= daysInMonth; i++) {
 				Log.d(currentMonthName, String.valueOf(i) + " "
 						+ getMonthAsString(currentMonth) + " " + yy);
-				if (i == getCurrentDayOfMonth()) {
+				
+				String day = mm + "-" + i + "-" + yy;
+				Cursor records = mDbAdapter.fetchAllRecordAttrByDate(day, wreRowId);
+				startManagingCursor(records);
+				if (records != null) {
+					records.moveToFirst();
+				}
+				if (records.getCount() > 0 && i != getCurrentDayOfMonth()) {
+					list.add(String.valueOf(i) + "-RED" + "-"
+							+ getMonthAsString(currentMonth) + "-" + yy);
+				}
+				else if (i == getCurrentDayOfMonth() && mm == (today.month + 1) && yy == today.year) {
 					list.add(String.valueOf(i) + "-BLUE" + "-"
 							+ getMonthAsString(currentMonth) + "-" + yy);
 				} else {
@@ -515,6 +539,9 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 			if (day_color[1].equals("BLUE")) {
 				gridcell.setTextColor(getResources().getColor(
 						R.color.static_text_color));
+			}
+			if (day_color[1].equals("RED")) {
+				gridcell.setTextColor(Color.RED);
 			}
 			return row;
 		}
