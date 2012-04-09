@@ -227,6 +227,22 @@ public class DatabaseAdapter {
 				+ " FROM "
 				+ ExerciseTable.TABLE_EXERCISE + " JOIN " + WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE + " ON Exercises."
 				+ ExerciseTable.COLUMN_ID + " = WorkoutRoutineExercises." + WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID
+				+ " WHERE WorkoutRoutineExercises."
+				+ WorkoutRoutineExerciseTable.COLUMN_ID + " = ?";
+				
+		Cursor mCursor = mDb.rawQuery(eQuery,
+				new String[] { String.valueOf(wreId) });
+
+		if (mCursor != null) {
+			mCursor.moveToFirst();
+		}
+		return mCursor;
+	}
+	/*public Cursor fetchExercisebyWRE(long wreId) {
+		String eQuery = "SELECT Exercises." + ExerciseTable.COLUMN_NAME + ", WorkoutRoutineExercises." + WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID
+				+ " FROM "
+				+ ExerciseTable.TABLE_EXERCISE + " JOIN " + WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE + " ON Exercises."
+				+ ExerciseTable.COLUMN_ID + " = WorkoutRoutineExercises." + WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID
 				+ " JOIN " + RecordTable.TABLE_RECORD + " ON WorkoutRoutineExercises." + WorkoutRoutineExerciseTable.COLUMN_ID + " = Records."
 				+ RecordTable.COLUMN_WRKT_RTNE_E_ID  + " WHERE "
 				+ RecordTable.COLUMN_WRKT_RTNE_E_ID + " = ? GROUP BY "
@@ -239,7 +255,7 @@ public class DatabaseAdapter {
 			mCursor.moveToFirst();
 		}
 		return mCursor;
-	}
+	}*/
 
 	public boolean deleteExerciseFromWorkout(long mRowId) {
 		return mDb.delete(
@@ -324,7 +340,7 @@ public class DatabaseAdapter {
 
 	}
 
-	public Cursor fetchExerciseIDBYWRE(long wreRowId) {
+	/*public Cursor fetchExerciseIDBYWRE(long wreRowId) {
 		Cursor mCursor = mDb
 				.query(WorkoutRoutineExerciseTable.TABLE_WORKOUTROUTINE_EXERCISE,
 						new String[] { WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID },
@@ -335,7 +351,7 @@ public class DatabaseAdapter {
 			mCursor.moveToFirst();
 		}
 		return mCursor;
-	}
+	}*/
 
 	// gets Id of WorkoutRoutineExercises by WorkoutRoutineId
 	public Cursor fetchWRE(long wreId) {

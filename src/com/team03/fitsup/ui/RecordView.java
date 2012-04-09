@@ -95,6 +95,12 @@ public class RecordView extends Activity {
 		if (records != null) {
 			records.moveToFirst();
 		}
+		if(records.getCount() >0) {
+			Log.v(TAG, "there are more than zero records");
+		} else
+		{
+			Log.v(TAG, "zero records");
+		}
 
 		switch (eRowId.intValue()) {
 		case 1:

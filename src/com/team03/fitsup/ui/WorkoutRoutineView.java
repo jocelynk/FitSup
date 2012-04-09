@@ -124,6 +124,18 @@ public class WorkoutRoutineView extends ListActivity {
     //Change to View Exercise, Add Record, Delete Exercise
     public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		
+		Cursor exercise_id = mDbAdapter.fetchExercisebyWRE(info.id);		
+		 for (String col : exercise_id.getColumnNames()) Log.v(TAG, col);
+
+		
+			String name = exercise_id.getString(exercise_id.getColumnIndexOrThrow(ExerciseTable.COLUMN_NAME));
+
+			long e_id = exercise_id.getLong(exercise_id.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID));
+			
+		Log.v(TAG, "This is the name: "+ name);
+		Log.v(TAG, "This is the exercise_id: "+e_id);
+		
 		switch (item.getItemId()) {
 		case R.id.menu_delete_wre:
                 mDbAdapter.deleteExerciseFromWorkout(info.id);
@@ -133,6 +145,8 @@ public class WorkoutRoutineView extends ListActivity {
 		case R.id.menu_view_wre:
 			Intent i = new Intent(this, ExerciseRecordUI.class);
 			i.putExtra(WorkoutRoutineExerciseTable.COLUMN_ID, info.id);
+			i.putExtra(ExerciseTable.COLUMN_NAME, name);
+			i.putExtra(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID, e_id);
 			startActivityForResult(i, ACTIVITY_VIEW);
 			return true;
         }

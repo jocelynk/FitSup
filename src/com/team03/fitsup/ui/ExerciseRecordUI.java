@@ -54,7 +54,9 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 
 	private DatabaseAdapter mDbAdapter;
 	private Long wreRowId;
-	private String date;
+	//private String date;
+	private String name;
+	private Long e_id;
 
 	private static final String tag = "SimpleCalendarViewActivity";
 
@@ -87,6 +89,24 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 			Bundle extras = getIntent().getExtras();
 			wreRowId = extras != null ? extras
 					.getLong(WorkoutRoutineExerciseTable.COLUMN_ID) : null;
+		}
+		
+		e_id = (savedInstanceState == null) ? null
+				: (Long) savedInstanceState
+						.getSerializable(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID);
+		if (e_id == null) {
+			Bundle extras = getIntent().getExtras();
+			e_id = extras != null ? extras
+					.getLong(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID) : null;
+		}
+		
+		name = (savedInstanceState == null) ? null
+				: (String) savedInstanceState
+						.getSerializable(WorkoutRoutineExerciseTable.COLUMN_ID);
+		if (name == null) {
+			Bundle extras = getIntent().getExtras();
+			name = extras != null ? extras
+					.getString(ExerciseTable.COLUMN_NAME) : null;
 		}
 
 		_calendar = Calendar.getInstance(Locale.getDefault());
@@ -123,19 +143,20 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 	 * @param month
 	 * @param year
 	 */
-	
+
 	protected void onResume() {
 		super.onResume();
 		Log.v(TAG, "+ ON RESUME +");
 		setGridCellAdapterToDate(month, year);
-		
+
 	}
 
 	private void setGridCellAdapterToDate(int month, int year) {
 		adapter = new GridCellAdapter(getApplicationContext(),
 				R.id.calendar_day_gridcell, month, year);
 		_calendar.set(year, month - 1, _calendar.get(Calendar.DAY_OF_MONTH));
-		currentMonth.setText(dateFormatter.format(dateTemplate, _calendar.getTime()));
+		currentMonth.setText(dateFormatter.format(dateTemplate,
+				_calendar.getTime()));
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
 	}
@@ -159,7 +180,7 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 	}
 
 	public void createRecord() {
-		Cursor exercise_id = mDbAdapter.fetchExerciseIDBYWRE(wreRowId);
+		Cursor exercise_id = mDbAdapter.fetchExercisebyWRE(wreRowId);
 		long e_id = exercise_id
 				.getLong(exercise_id
 						.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID));
@@ -393,18 +414,18 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 						+ "-"
 						+ prevYear);
 			}
-			
+
 			Time today = new Time(Time.getCurrentTimezone());
 			today.setToNow();
 
-			
 			// Current Month Days
 			for (int i = 1; i <= daysInMonth; i++) {
 				Log.d(currentMonthName, String.valueOf(i) + " "
 						+ getMonthAsString(currentMonth) + " " + yy);
-				
+
 				String day = mm + "-" + i + "-" + yy;
-				Cursor records = mDbAdapter.fetchAllRecordAttrByDate(day, wreRowId);
+				Cursor records = mDbAdapter.fetchAllRecordAttrByDate(day,
+						wreRowId);
 				startManagingCursor(records);
 				if (records != null) {
 					records.moveToFirst();
@@ -412,8 +433,8 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 				if (records.getCount() > 0 && i != getCurrentDayOfMonth()) {
 					list.add(String.valueOf(i) + "-RED" + "-"
 							+ getMonthAsString(currentMonth) + "-" + yy);
-				}
-				else if (i == getCurrentDayOfMonth() && mm == (today.month + 1) && yy == today.year) {
+				} else if (i == getCurrentDayOfMonth()
+						&& mm == (today.month + 1) && yy == today.year) {
 					list.add(String.valueOf(i) + "-BLUE" + "-"
 							+ getMonthAsString(currentMonth) + "-" + yy);
 				} else {
@@ -552,14 +573,7 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 					.getTag(R.id.calendar_day_gridcell);
 			String month_date_year = (String) view.getTag(R.id.intMonth);
 			selectedDayMonthYearButton.setText("Selected: " + date_month_year);
-			Cursor exercise_id = mDbAdapter.fetchExercisebyWRE(wreRowId);
 			
-			String name = exercise_id.getString(exercise_id.getColumnIndexOrThrow(ExerciseTable.COLUMN_NAME));
-			for (String col : exercise_id.getColumnNames()) Log.v(TAG, col);
-
-			long e_id = exercise_id
-			.getLong(exercise_id
-					.getColumnIndexOrThrow(WorkoutRoutineExerciseTable.COLUMN_EXERCISE_ID));
 			Intent i = new Intent(getBaseContext(), RecordView.class);
 			i.putExtra(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);
 			i.putExtra(RecordTable.COLUMN_DATE, month_date_year);
