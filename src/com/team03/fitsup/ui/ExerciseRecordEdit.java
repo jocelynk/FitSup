@@ -14,16 +14,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.team03.fitsup.R;
-import com.team03.fitsup.data.AttributeTable;
 import com.team03.fitsup.data.DatabaseAdapter;
-import com.team03.fitsup.data.ExerciseAttributeTable;
 import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.RecordTable;
-import com.team03.fitsup.data.WorkoutRoutineExerciseTable;
-import com.team03.fitsup.data.WorkoutRoutineTable;
+
 
 public class ExerciseRecordEdit extends Activity {
 	private static final String TAG = "ExerciseRecordEdit";

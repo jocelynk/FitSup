@@ -15,10 +15,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.SimpleCursorAdapter;
 
 import com.team03.fitsup.R;
-import com.team03.fitsup.data.AttributeTable;
 import com.team03.fitsup.data.DatabaseAdapter;
-import com.team03.fitsup.data.RecordTable;
-import com.team03.fitsup.data.WorkoutRoutineExerciseTable;
 import com.team03.fitsup.data.WorkoutRoutineTable;
 
 /*when i do stuff with the GUI, then use getContext(),

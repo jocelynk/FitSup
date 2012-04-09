@@ -35,6 +35,7 @@ import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.RecordTable;
 import com.team03.fitsup.data.WorkoutRoutineExerciseTable;
 
+
 //Things to Do:
 //need to figure out what to do with date and how to add either datepicker or calendar, fragments? when you click on date?
 //++++WorkoutRoutine Queries++++
