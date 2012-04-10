@@ -1,6 +1,5 @@
 package com.team03.fitsup.data;
 
-import com.team03.fitsup.R.string;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
-import android.util.Log;
 
 public class DatabaseAdapter {
 

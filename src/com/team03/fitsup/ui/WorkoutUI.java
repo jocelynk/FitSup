@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.team03.fitsup.R;
@@ -124,11 +125,6 @@ public class WorkoutUI extends ListActivity {
 			 */
 			fillData();
 			return true;
-		case R.id.menu_view_wr:
-			Intent i = new Intent(this, WorkoutRoutineView.class);
-			i.putExtra(WorkoutRoutineTable.COLUMN_ID, info.id);
-			startActivityForResult(i, ACTIVITY_VIEW);
-			return true;
 		case R.id.menu_edit_wr:
 			Intent j = new Intent(this, WorkoutRoutineEdit.class);
 			j.putExtra(WorkoutRoutineTable.COLUMN_ID, info.id);
@@ -156,13 +152,13 @@ public class WorkoutUI extends ListActivity {
 		startActivityForResult(i, ACTIVITY_CREATE);
 	}
 
-	/*
-	 * @Override protected void onListItemClick(ListView l, View v, int
-	 * position, long id) { super.onListItemClick(l, v, position, id); Intent i
-	 * = new Intent(this, WorkoutRoutineView.class);
-	 * i.putExtra(WorkoutRoutineTable.COLUMN_ID, id); startActivityForResult(i,
-	 * ACTIVITY_EDIT); }
-	 */
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Intent i = new Intent(this, WorkoutRoutineView.class);
+		i.putExtra(WorkoutRoutineTable.COLUMN_ID, id);
+		startActivityForResult(i, ACTIVITY_VIEW);
+	}
 
 	/*
 	 * @Override protected void onListItemClick(ListView l, View v, int

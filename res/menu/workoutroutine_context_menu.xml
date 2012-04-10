@@ -1,6 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">    
-    <item android:id="@+id/menu_view_wr"
-        android:title="@string/menu_view_wr" />
     <item android:id="@+id/menu_edit_wr"
         android:title="@string/menu_edit_wr" />
     <item android:id="@+id/menu_delete_wr"

@@ -67,13 +67,11 @@ public final class R {
         public static final int linearLayout1=0x7f080013;
         public static final int listview=0x7f080029;
         public static final int menu_delete_r=0x7f08002c;
-        public static final int menu_delete_wr=0x7f08002f;
-        public static final int menu_delete_wre=0x7f080031;
+        public static final int menu_delete_wr=0x7f08002e;
+        public static final int menu_delete_wre=0x7f08002f;
         public static final int menu_edit_r=0x7f08002b;
-        public static final int menu_edit_wr=0x7f08002e;
+        public static final int menu_edit_wr=0x7f08002d;
         public static final int menu_view_r=0x7f08002a;
-        public static final int menu_view_wr=0x7f08002d;
-        public static final int menu_view_wre=0x7f080030;
         public static final int mi=0x7f08000a;
         public static final int miles=0x7f08001c;
         public static final int min=0x7f08000d;

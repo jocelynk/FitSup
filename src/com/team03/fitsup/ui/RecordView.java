@@ -1,22 +1,20 @@
 package com.team03.fitsup.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.AttributeTable;
 import com.team03.fitsup.data.DatabaseAdapter;
 import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.RecordTable;
-import com.team03.fitsup.data.WorkoutRoutineTable;
+
+
 
 //Needs a lot of thinking and work
 public class RecordView extends Activity {
