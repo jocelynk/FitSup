@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/nameview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_weight="1"
-        android:text="Enter Workout Routine"
-        android:textSize="25dp" />
-
-    <EditText
-        android:id="@+id/name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nameview"
-        android:layout_margin="15dp"
-        android:layout_weight="1"
-        android:hint="Enter Workout Routine Name" />
+        android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_margin="15dp"
-        android:layout_weight="1"
-        android:hint="Enter Description"
-        android:gravity="top"
-        android:inputType="textMultiLine"
-        android:lines="5"
-        android:scrollbars="vertical" />
+        <TextView
+            android:id="@+id/nameview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:text="Enter Workout Routine"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/description"
-        android:layout_margin="15dp"
-        android:text="@string/confirm" />
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/confirm"
-        android:layout_below="@id/description"
-        android:layout_marginTop="15dp"
-        android:text="Cancel" />
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:hint="Enter Workout Routine Name" />
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:hint="Enter Description"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:scrollbars="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/description"
+                android:layout_margin="15dp"
+                android:text="@string/confirm" />
+
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Cancel" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

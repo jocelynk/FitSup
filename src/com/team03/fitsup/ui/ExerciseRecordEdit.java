@@ -5,6 +5,7 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,12 +15,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.team03.fitsup.R;
+import com.team03.fitsup.data.AttributeTable;
 import com.team03.fitsup.data.DatabaseAdapter;
 import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.RecordTable;
-
 
 public class ExerciseRecordEdit extends Activity {
 	private static final String TAG = "ExerciseRecordEdit";
@@ -36,6 +38,7 @@ public class ExerciseRecordEdit extends Activity {
 	private Long wreRowId;
 	private Long eRowId;
 	private Button confirmButton;
+	private Cursor c;
 
 	// for the date picker
 
@@ -77,6 +80,7 @@ public class ExerciseRecordEdit extends Activity {
 					: null;
 		}
 
+		Log.v(TAG, "Exercise id: "+eRowId);
 		switch (eRowId.intValue()) {
 		case 1:
 		case 2:
@@ -99,6 +103,27 @@ public class ExerciseRecordEdit extends Activity {
 			confirmButton = (Button) findViewById(R.id.confirm);
 
 			break;
+		case 7:
+			setContentView(R.layout.jumping_jacks_edit);
+			mSetText = (EditText) findViewById(R.id.value);
+			mRepText = (EditText) findViewById(R.id.value2);
+			confirmButton = (Button) findViewById(R.id.confirm);
+			break;
+		case 8:
+			setContentView(R.layout.stretch_edit);
+			mMinuteText = (EditText) findViewById(R.id.min);
+			mSecondText = (EditText) findViewById(R.id.sec);
+			confirmButton = (Button) findViewById(R.id.confirm);
+			break;
+		case 9:
+			setContentView(R.layout.jumprope_edit);
+			mHourText = (EditText) findViewById(R.id.hr);
+			mMinuteText = (EditText) findViewById(R.id.min);
+			mSecondText = (EditText) findViewById(R.id.sec);
+			mSetText = (EditText) findViewById(R.id.value);
+			mRepText = (EditText) findViewById(R.id.value2);
+			confirmButton = (Button) findViewById(R.id.confirm);
+			break;
 
 		}
 
@@ -107,6 +132,7 @@ public class ExerciseRecordEdit extends Activity {
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
+				saveState();
 				setResult(RESULT_OK);
 				finish();
 			}
@@ -190,9 +216,6 @@ public class ExerciseRecordEdit extends Activity {
 		super.onPause();
 		if (DEBUG)
 			Log.v(TAG, "+ ON PAUSE +");
-
-		saveState();
-
 	}
 
 	@Override
@@ -206,7 +229,21 @@ public class ExerciseRecordEdit extends Activity {
 		// switch case statement - later need to get exercise id //create SQL
 		// query or reuse another
 		String date = mDateDisplay.getText().toString();
-
+//		Cursor cTime = mDbAdapter.fetchAttribute("Time");
+//		long time_id = cTime.getLong(cTime
+//				.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
+//		Cursor cDistance = mDbAdapter.fetchAttribute("Distance");
+//		long distance_id = cTime.getLong(cTime
+//				.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
+//		Cursor cSets = mDbAdapter.fetchAttribute("Set");
+//		long sets_id = cTime.getLong(cTime
+//				.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
+//		Cursor cReps = mDbAdapter.fetchAttribute("Reps");
+//		long reps_id = cTime.getLong(cTime
+//				.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
+//		Cursor cWeights = mDbAdapter.fetchAttribute("Weight");
+//		long weight_id = cTime.getLong(cTime
+//				.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
 		switch (eRowId.intValue()) {
 		case 1:
 		case 2:
@@ -227,7 +264,16 @@ public class ExerciseRecordEdit extends Activity {
 			double val = !TextUtils.isEmpty(value) ? Double.parseDouble(value)
 					: -1;
 			// time
-			Cursor c = mDbAdapter.fetchRecord(date, 1, wreRowId);
+			if (eRowId.intValue() == 1) {
+				c = mDbAdapter.fetchRecord(date, 1, wreRowId);
+			} else if (eRowId.intValue() == 2) {
+				c = mDbAdapter.fetchRecord(date, 3, wreRowId);
+
+			} else if (eRowId.intValue() == 3) {
+				c = mDbAdapter.fetchRecord(date, 5, wreRowId);
+
+			}
+
 			// Cursor a = mDbAdapter.fetchAttribute("Time");
 			// long a_id =
 			// a.getLong(a.getColumnIndexOrThrow(AttributeTable.COLUMN_ID));
@@ -239,15 +285,41 @@ public class ExerciseRecordEdit extends Activity {
 			// if(c!=null && c.getCount()>0 && d!=null && d.getCount()>0)
 			if (c != null && c.getCount() > 0) {
 				if (savedTime != -1 && val != -1) {
-					mDbAdapter.updateRecord(date, savedTime, 1, wreRowId);
-					mDbAdapter.updateRecord(date, val, 2, wreRowId);
+					if (eRowId.intValue() == 1) {
+						mDbAdapter.updateRecord(date, savedTime, 1, wreRowId);
+						mDbAdapter.updateRecord(date, val, 2, wreRowId);
+					} else if (eRowId.intValue() == 2) {
+						mDbAdapter.updateRecord(date, savedTime, 3, wreRowId);
+						mDbAdapter.updateRecord(date, val, 4, wreRowId);
+
+					} else if (eRowId.intValue() == 3) {
+						mDbAdapter.updateRecord(date, savedTime, 5, wreRowId);
+						mDbAdapter.updateRecord(date, val, 6, wreRowId);
+
+					}
 				}
 			} else {
 				if (savedTime != -1 && val != -1) {
-					// time
-					mDbAdapter.createRecord(date, savedTime, 1, wreRowId);
-					// distance
-					mDbAdapter.createRecord(date, val, 2, wreRowId);
+
+					if (eRowId.intValue() == 1) {
+						// time
+						mDbAdapter.createRecord(date, savedTime, 1, wreRowId);
+						// distance
+						mDbAdapter.createRecord(date, val, 2, wreRowId);
+					} else if (eRowId.intValue() == 2) {
+						// time
+						mDbAdapter.createRecord(date, savedTime, 3, wreRowId);
+						// distance
+						mDbAdapter.createRecord(date, val, 4, wreRowId);
+
+					} else if (eRowId.intValue() == 3) {
+						// time
+						mDbAdapter.createRecord(date, savedTime, 5, wreRowId);
+						// distance
+						mDbAdapter.createRecord(date, val, 6, wreRowId);
+
+					}
+
 				}
 			}
 			break;
@@ -266,23 +338,172 @@ public class ExerciseRecordEdit extends Activity {
 					.parseDouble(weightString) : -1;
 			// create Query that will query for the name of the attribute
 			// and take in ExerciseId to replace in createRecord() method
-			Cursor e = mDbAdapter.fetchRecord(date, 6, wreRowId);
 
-			if (e != null && e.getCount() > 0) {
+			if (eRowId.intValue() == 4) {
+				c = mDbAdapter.fetchRecord(date, 7, wreRowId);
+			} else if (eRowId.intValue() == 5) {
+				c = mDbAdapter.fetchRecord(date, 10, wreRowId);
+
+			} else if (eRowId.intValue() == 6) {
+				c = mDbAdapter.fetchRecord(date, 13, wreRowId);
+
+			}
+
+			if (c != null && c.getCount() > 0) {
 				if (set != -1 && rep != -1 && weight != -1) {
-					mDbAdapter.updateRecord(date, set, 6, wreRowId);
-					mDbAdapter.updateRecord(date, rep, 7, wreRowId);
-					mDbAdapter.updateRecord(date, weight, 8, wreRowId);
+					if (eRowId.intValue() == 4) {
+						mDbAdapter.updateRecord(date, set, 7, wreRowId);
+						mDbAdapter.updateRecord(date, rep, 8, wreRowId);
+						mDbAdapter.updateRecord(date, weight, 9, wreRowId);
+					} else if (eRowId.intValue() == 5) {
+						mDbAdapter.updateRecord(date, set, 10, wreRowId);
+						mDbAdapter.updateRecord(date, rep, 11, wreRowId);
+						mDbAdapter.updateRecord(date, weight, 12, wreRowId);
+
+					} else if (eRowId.intValue() == 6) {
+						mDbAdapter.updateRecord(date, set, 13, wreRowId);
+						mDbAdapter.updateRecord(date, rep, 14, wreRowId);
+						mDbAdapter.updateRecord(date, weight, 15, wreRowId);
+
+					}
+					
 				}
 			} else {
 				if (set != -1 && rep != -1 && weight != -1) {
+					if (eRowId.intValue() == 4) {
+						mDbAdapter.createRecord(date, set, 7, wreRowId);
+						mDbAdapter.createRecord(date, rep, 8, wreRowId);
+						mDbAdapter.createRecord(date, weight, 9, wreRowId);
+					} else if (eRowId.intValue() == 5) {
+						mDbAdapter.createRecord(date, set, 10, wreRowId);
+						mDbAdapter.createRecord(date, rep, 11, wreRowId);
+						mDbAdapter.createRecord(date, weight, 12, wreRowId);
 
-					mDbAdapter.createRecord(date, set, 6, wreRowId);
-					mDbAdapter.createRecord(date, rep, 7, wreRowId);
-					mDbAdapter.createRecord(date, weight, 8, wreRowId);
+					} else if (eRowId.intValue() == 6) {
+						mDbAdapter.createRecord(date, set, 13, wreRowId);
+						mDbAdapter.createRecord(date, rep, 14, wreRowId);
+						mDbAdapter.createRecord(date, weight, 15, wreRowId);
+
+					}
+					
 				}
 			}
+			break;
+		case 7:
+			String setString2 = mSetText.getText().toString();
+			String repString2 = mRepText.getText().toString();
+			double set2 = !TextUtils.isEmpty(setString2) ? Double
+					.parseDouble(setString2) : -1;
+			double rep2 = !TextUtils.isEmpty(repString2) ? Double
+					.parseDouble(repString2) : -1;
+			// create Query that will query for the name of the attribute
+			// and take in ExerciseId to replace in createRecord() method
+					
+				c = mDbAdapter.fetchRecord(date, 16, wreRowId);
+
+			if (c != null && c.getCount() > 0) {
+				if (set2 != -1 && rep2 != -1) {
+
+						mDbAdapter.updateRecord(date, set2, 16, wreRowId);
+						mDbAdapter.updateRecord(date, rep2, 17, wreRowId);
+				
+					}
+					
+			} else {
+				if (set2 != -1 && rep2 != -1) {
+					
+						mDbAdapter.createRecord(date, set2, 16, wreRowId);
+						mDbAdapter.createRecord(date, rep2, 17, wreRowId);
+					
+				}
+			}
+			break;
+		case 8:
+			String minute2 = mMinuteText.getText().toString();
+			String second2 = mSecondText.getText().toString();
+			double min2 = !TextUtils.isEmpty(minute2) ? Double
+					.parseDouble(minute2) : 0;
+			double sec2 = !TextUtils.isEmpty(second2) ? Double
+					.parseDouble(second2) : 0;
+
+			double savedTime2 = (min2 == 0.0 && sec2 == 0.0) ? -1
+					: min2 + (sec2 / 60.0);
+			
+			// time
+			
+				c = mDbAdapter.fetchRecord(date, 18, wreRowId);
+
+
+				if (c != null && c.getCount() > 0) {
+				if (savedTime2 != -1) {
+						mDbAdapter.updateRecord(date, savedTime2, 1, wreRowId);
+					} else if (eRowId.intValue() == 2) {
+				
+				}
+			} else {
+				if (savedTime2 != -1) {
+
+						// time
+						mDbAdapter.createRecord(date, savedTime2, 18, wreRowId);
+				
+
+				}
+			}
+			break;
+		case 9:
+			String minute1 = mMinuteText.getText().toString();
+			String second1 = mSecondText.getText().toString();
+			String setString1 = mSetText.getText().toString();
+			String repString1 = mRepText.getText().toString();
+			
+			//time
+			double min1 = !TextUtils.isEmpty(minute1) ? Double
+					.parseDouble(minute1) : 0;
+			double sec1 = !TextUtils.isEmpty(second1) ? Double
+					.parseDouble(second1) : 0;
+
+			double savedTime1 = (min1 == 0.0 && sec1 == 0.0) ? -1
+					: (min1 + (sec1 / 60.0));
+		
+			// set/rep
+			double set1 = !TextUtils.isEmpty(setString1) ? Double
+					.parseDouble(setString1) : -1;
+			double rep1 = !TextUtils.isEmpty(repString1) ? Double
+					.parseDouble(repString1) : -1;
+					
+			c = mDbAdapter.fetchRecord(date, 19, wreRowId);
+			// Cursor a = mDbAdapter.fetchAttribute("Time");
+			// long a_id =
+			// a.getLong(a.getColumnIndexOrThrow(AttributeTable.COLUMN_ID));
+			// Cursor ea = mDbAdapter.fetchExerciseAttribute(a_id, eRowId);
+			// long ea_id =
+			// ea.getLong(a.getColumnIndexOrThrow(ExerciseAttributeTable.COLUMN_ID));
+			// Cursor d = mDbAdapter.fetchRecord(date, 2, wreRowId); Is this
+			// okay? assuming if one value is filled, other is filled too
+			// if(c!=null && c.getCount()>0 && d!=null && d.getCount()>0)
+			if (c != null && c.getCount() > 0) {
+				if (savedTime1 != -1 && set1 != -1 && rep1 != -1) {
+					mDbAdapter.updateRecord(date, savedTime1, 19, wreRowId);
+					mDbAdapter.updateRecord(date, set1, 20, wreRowId);
+					mDbAdapter.updateRecord(date, rep1, 21, wreRowId);
+				}
+			} else {
+				if (savedTime1 != -1 && set1 != -1 && rep1 != -1) {
+					// time
+					mDbAdapter.createRecord(date, savedTime1, 19, wreRowId);
+					// set
+					mDbAdapter.createRecord(date, set1, 20, wreRowId);
+					// rep
+					mDbAdapter.createRecord(date, rep1, 21, wreRowId);
+				}
+			}
+			break;
 
 		}
+		Context context = getApplicationContext();
+		CharSequence text = "Your Record has been saved.";
+		int duration = Toast.LENGTH_SHORT;
 	}
+
+	
 }

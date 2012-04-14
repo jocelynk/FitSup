@@ -14,8 +14,6 @@ import com.team03.fitsup.data.DatabaseAdapter;
 import com.team03.fitsup.data.ExerciseTable;
 import com.team03.fitsup.data.RecordTable;
 
-
-
 //Needs a lot of thinking and work
 public class RecordView extends Activity {
 
@@ -58,7 +56,7 @@ public class RecordView extends Activity {
 			date = extras != null ? extras.getString(RecordTable.COLUMN_DATE)
 					: null;
 		}
-		
+
 		name = (savedInstanceState == null) ? null
 				: (String) savedInstanceState
 						.getSerializable(ExerciseTable.COLUMN_NAME);
@@ -93,10 +91,9 @@ public class RecordView extends Activity {
 		if (records != null) {
 			records.moveToFirst();
 		}
-		if(records.getCount() >0) {
+		if (records.getCount() > 0) {
 			Log.v(TAG, "there are more than zero records");
-		} else
-		{
+		} else {
 			Log.v(TAG, "zero records");
 		}
 
@@ -132,6 +129,43 @@ public class RecordView extends Activity {
 			}
 
 			break;
+		case 7:
+			if (records.getCount() > 0) {
+				setContentView(R.layout.jumping_jacks);
+				mNameText = (TextView) findViewById(R.id.exercise_name);
+				mDateText = (TextView) findViewById(R.id.date);
+				mSetText = (TextView) findViewById(R.id.value);
+				mRepText = (TextView) findViewById(R.id.value2);
+			} else {
+				setContentView(R.layout.no_records);
+			}
+
+			break;
+		case 8:
+			Log.v(TAG, "in 8");
+			if (records.getCount() > 0) {
+				setContentView(R.layout.stretch);
+				mNameText = (TextView) findViewById(R.id.exercise_name);
+				mDateText = (TextView) findViewById(R.id.date);
+				mMinText = (TextView) findViewById(R.id.min);
+				mSecText = (TextView) findViewById(R.id.sec);
+			} else {
+				setContentView(R.layout.no_records);
+			}
+			break;
+		case 9:
+			if (records.getCount() > 0) {
+				setContentView(R.layout.jumprope);
+				mNameText = (TextView) findViewById(R.id.exercise_name);
+				mDateText = (TextView) findViewById(R.id.date);
+				mMinText = (TextView) findViewById(R.id.min);
+				mSecText = (TextView) findViewById(R.id.sec);
+				mSetText = (TextView) findViewById(R.id.value);
+				mRepText = (TextView) findViewById(R.id.value2);
+			} else {
+				setContentView(R.layout.no_records);
+			}
+			break;
 
 		}
 		populateFields();
@@ -141,7 +175,7 @@ public class RecordView extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, DELETE_ID, 0, R.string.menu_delete_r);
+		menu.add(0, DELETE_ID, 0, R.string.menu_delete);
 		return true;
 	}
 
@@ -156,7 +190,6 @@ public class RecordView extends Activity {
 
 		return super.onMenuItemSelected(featureId, item);
 	}
-
 
 	private void populateFields() {
 		Cursor records = mDbAdapter.fetchAllRecordAttrByDate(date, wreRowId);
@@ -210,23 +243,23 @@ public class RecordView extends Activity {
 		case 6:
 			if (records.getCount() > 0) {
 				while (records.isAfterLast() == false) {
-					long rowId = records.getLong(records
+					long rowId1 = records.getLong(records
 							.getColumnIndexOrThrow(RecordTable.COLUMN_ID));
-					Cursor record = mDbAdapter.fetchAttributeOfRecord(rowId);
-					String attribute = record.getString(record
+					Cursor record1 = mDbAdapter.fetchAttributeOfRecord(rowId1);
+					String attribute1 = record1.getString(record1
 							.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
-					int value = records.getInt(records
+					int value1 = records.getInt(records
 							.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
-					if (attribute.equals("Set")) {
-						mSetText.setText(String.valueOf(value));
-						record.close();
+					if (attribute1.equals("Set")) {
+						mSetText.setText(String.valueOf(value1));
+						record1.close();
 
-					} else if (attribute.equals("Reps")) {
-						mRepText.setText(String.valueOf(value));
-						record.close();
+					} else if (attribute1.equals("Reps")) {
+						mRepText.setText(String.valueOf(value1));
+						record1.close();
 					} else {
-						mWeightText.setText(String.valueOf(value));
-						record.close();
+						mWeightText.setText(String.valueOf(value1));
+						record1.close();
 					}
 					records.moveToNext();
 				}
@@ -236,7 +269,99 @@ public class RecordView extends Activity {
 			}
 			records.close();
 			break;
+		case 7:
+			if (records.getCount() > 0) {
+				while (records.isAfterLast() == false) {
+					long rowId3 = records.getLong(records
+							.getColumnIndexOrThrow(RecordTable.COLUMN_ID));
+					Cursor record3 = mDbAdapter.fetchAttributeOfRecord(rowId3);
+					String attribute3 = record3.getString(record3
+							.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
+					int value3 = records.getInt(records
+							.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
+					if (attribute3.equals("Set")) {
+						mSetText.setText(String.valueOf(value3));
+						record3.close();
 
+					} else if (attribute3.equals("Reps")) {
+						mRepText.setText(String.valueOf(value3));
+						record3.close();
+					}
+					records.moveToNext();
+				}
+				mDateText.setText(date);
+				mNameText.setText(name);
+
+			}
+			records.close();
+			break;
+		case 8:
+			if (records.getCount() > 0) {
+				Log.v(TAG, "in 888888");
+				long rowId4 = records.getLong(records
+						.getColumnIndexOrThrow(RecordTable.COLUMN_ID));
+				Cursor record4 = mDbAdapter.fetchAttributeOfRecord(rowId4);
+
+				double value4 = records.getDouble(records
+						.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
+
+				int min4 = (int) Math.floor(value4);
+				int sec4 = (int) Math.round((value4 - min4) * 60);
+				mMinText.setText(String.valueOf(min4));
+				mSecText.setText(String.valueOf(sec4));
+				record4.close();
+				mDateText.setText(date);
+				mNameText.setText(name);
+			}
+			records.close();
+			break;
+		case 9:
+			if (records.getCount() > 0) {
+				while (records.isAfterLast() == false) {
+					long rowId2 = records.getLong(records
+							.getColumnIndexOrThrow(RecordTable.COLUMN_ID));
+					Cursor record2 = mDbAdapter.fetchAttributeOfRecord(rowId2);
+					String attribute2 = record2.getString(record2
+							.getColumnIndexOrThrow(AttributeTable.COLUMN_NAME));
+
+					if (attribute2.equals("Time")) {
+						// fix this later
+						double value2 = records
+								.getDouble(records
+										.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
+
+						int min2 = (int) Math.floor(value2);
+						Log.v(TAG, "Time");
+						int sec2 = (int) Math.round((value2 - min2) * 60);
+						mMinText.setText(String.valueOf(min2));
+						mSecText.setText(String.valueOf(sec2));
+						record2.close();
+
+					} else if (attribute2.equals("Set")) {
+						Log.v(TAG, "Set");
+
+						int value2 = records
+								.getInt(records
+										.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
+						mSetText.setText(String.valueOf(value2));
+						record2.close();
+
+					} else if (attribute2.equals("Reps")) {
+						Log.v(TAG, "Reps");
+
+						int value2 = records
+								.getInt(records
+										.getColumnIndexOrThrow(RecordTable.COLUMN_VALUE));
+						mRepText.setText(String.valueOf(value2));
+						record2.close();
+					}
+					records.moveToNext();
+				}
+				mDateText.setText(date);
+				mNameText.setText(name);
+			}
+			records.close();
+			break;
 		}
 
 	}

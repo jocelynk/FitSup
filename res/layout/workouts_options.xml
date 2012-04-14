@@ -8,7 +8,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:background="@color/blue"
         android:orientation="vertical" >
 
         <TextView
@@ -16,7 +15,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="15pt"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
@@ -24,7 +23,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="10pt" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout

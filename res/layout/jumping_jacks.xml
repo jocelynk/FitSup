@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageButton1"
-        android:textSize="48px"/>
+        android:textSize="48px"
+       />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,49 +84,5 @@
 
     </LinearLayout>
     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageButton1"
-        android:layout_marginTop="35dp"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/value"
-            android:layout_below="@+id/value"
-            android:paddingLeft="5dp"
-            android:textSize="32px"
-            android:text="Time: " />
-
-        <TextView
-            android:id="@+id/min"
-            android:layout_width="32dp"
-            android:layout_height="wrap_content"
-            android:textSize="32px"
-            android:layout_below="@+id/distance" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32px"
-            android:text="min " />
-
-        <TextView
-            android:id="@+id/sec"
-            android:layout_width="32dp"
-            android:layout_height="wrap_content"
-            android:textSize="32px"
-            android:layout_below="@+id/distance" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32px"
-            android:text="sec" />
-    </LinearLayout>
-
+   
 </RelativeLayout>

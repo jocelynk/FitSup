@@ -47,7 +47,6 @@ public class WorkoutUI extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.workouts_index);
 		Log.v(TAG, "+++ ON CREATE +++");
 
@@ -112,7 +111,7 @@ public class WorkoutUI extends ListActivity {
 		Cursor c = mDbAdapter.fetchWRE(info.id);
 
 		switch (item.getItemId()) {
-		case R.id.menu_delete_wr:
+		case R.id.menu_delete:
 			mDbAdapter.deleteRecordByWR(info.id);
 			mDbAdapter.deleteWorkoutExercise(info.id);
 			mDbAdapter.deleteWorkout(info.id);
@@ -125,7 +124,7 @@ public class WorkoutUI extends ListActivity {
 			 */
 			fillData();
 			return true;
-		case R.id.menu_edit_wr:
+		case R.id.menu_edit:
 			Intent j = new Intent(this, WorkoutRoutineEdit.class);
 			j.putExtra(WorkoutRoutineTable.COLUMN_ID, info.id);
 			startActivityForResult(j, ACTIVITY_EDIT);

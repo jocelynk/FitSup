@@ -1,6 +1,7 @@
 package com.team03.fitsup.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.team03.fitsup.R;
 import com.team03.fitsup.data.DatabaseAdapter;
@@ -52,6 +54,7 @@ public class WorkoutExerciseEdit extends Activity {
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
+				save();
 				setResult(RESULT_OK);
 				// pops activity off the "back stack" and destroys it. resumes the next activity on the back stack.
 				finish();
@@ -119,7 +122,6 @@ public class WorkoutExerciseEdit extends Activity {
 	protected void onPause() {
 		super.onPause();
 		if (DEBUG) Log.v(TAG, "+ ON PAUSE +");
-		save();
 	}
 
 	@Override
@@ -131,5 +133,8 @@ public class WorkoutExerciseEdit extends Activity {
 
 	private void save() {
 		mDbAdapter.createWorkoutExercise(wRowId, eRowId);
+		Context context = getApplicationContext();
+		CharSequence text = "Your Exercise has been added.";
+		int duration = Toast.LENGTH_SHORT;
 	}
 }

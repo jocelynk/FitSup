@@ -5,21 +5,15 @@
     <string name="app_name">FitSup</string>
     <string name="no_workouts">You have no Workout Routines. Add Workout Routines from Menu.</string>
     <string name="menu_insert">Add Workout Routine</string>
-    <string name="menu_delete">Delete Workout Routine</string>
+     <string name="menu_view">View</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_delete">Delete</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="confirm">Confirm</string>
     <string name="menu_insert_exercise">Add Exercise</string>
     <string name="no_exercises">You have no Exercises. Add Exercise from Menu.</string>
-    <string name="menu_view_wr">View Workout Routine</string>
-    <string name="menu_edit_wr">Edit Workout Routine</string>
-    <string name="menu_delete_wr">Delete Workout Routine</string>
     <string name="choose_exercise">Choose an Exercise.</string>
-    <string name="menu_view_wre">View Exercise</string>
-    <string name="menu_delete_wre">Delete Exercise</string>
-    <string name="menu_view_r">View Record</string>
-    <string name="menu_edit_r">Edit Record</string>
-    <string name="menu_delete_r">Delete Record</string>
     <string name="no_records">You have no Records. Add Record from Menu.</string>
     <string name="menu_insert_records">Add Record</string>
 </resources>

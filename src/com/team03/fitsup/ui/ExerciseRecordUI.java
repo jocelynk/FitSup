@@ -431,11 +431,12 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 				if (records != null) {
 					records.moveToFirst();
 				}
-				if (records.getCount() > 0 && i != getCurrentDayOfMonth()) {
+				if (records.getCount() > 0) {
 					list.add(String.valueOf(i) + "-RED" + "-"
 							+ getMonthAsString(currentMonth) + "-" + yy);
 				} else if (i == getCurrentDayOfMonth()
 						&& mm == (today.month + 1) && yy == today.year) {
+					Log.v(TAG, "today's month=" + today.month);
 					list.add(String.valueOf(i) + "-BLUE" + "-"
 							+ getMonthAsString(currentMonth) + "-" + yy);
 				} else {
@@ -573,7 +574,7 @@ public class ExerciseRecordUI extends Activity implements OnClickListener {
 			String date_month_year = (String) view
 					.getTag(R.id.calendar_day_gridcell);
 			String month_date_year = (String) view.getTag(R.id.intMonth);
-			selectedDayMonthYearButton.setText("Selected: " + date_month_year);
+			selectedDayMonthYearButton.setText("Add Record from Menu");
 			
 			Intent i = new Intent(getBaseContext(), RecordView.class);
 			i.putExtra(RecordTable.COLUMN_WRKT_RTNE_E_ID, wreRowId);

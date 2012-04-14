@@ -134,7 +134,7 @@ public class WorkoutRoutineView extends ListActivity {
 				.getMenuInfo();
 
 		switch (item.getItemId()) {
-		case R.id.menu_delete_wre:
+		case R.id.menu_delete:
 			mDbAdapter.deleteExerciseFromWorkout(info.id);
 			mDbAdapter.deleteRecordsByWRE(info.id);
 			fillData();

@@ -1,6 +1,10 @@
 package com.team03.fitsup.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -39,7 +43,7 @@ public class WorkoutRoutineEdit extends Activity {
 		mDescriptionText = (EditText) findViewById(R.id.description);
 
 		Button confirmButton = (Button) findViewById(R.id.confirm);
-		// Button cancelButtton = (Button) findViewById(R.id.cancel);
+		Button cancelButtton = (Button) findViewById(R.id.cancel);
 
 		mRowId = (savedInstanceState == null) ? null
 				: (Long) savedInstanceState
@@ -55,10 +59,17 @@ public class WorkoutRoutineEdit extends Activity {
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View view) {
+				saveState();
 				setResult(RESULT_OK);
 				finish();
 			}
 
+		});
+
+		cancelButtton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				showDialog(0);
+			}
 		});
 		/*
 		 * cancelButtton.setOnClickListener(new View.OnClickListener() { public
@@ -100,16 +111,28 @@ public class WorkoutRoutineEdit extends Activity {
 		 */
 	}
 
-	/*
-	 * @Override protected Dialog onCreateDialog(int id) { switch (id) { case 0:
-	 * return new AlertDialog.Builder(this)
-	 * .setMessage("Are you sure you want to Cancel?") .setPositiveButton("OK",
-	 * new DialogInterface.OnClickListener() { public void
-	 * onClick(DialogInterface dialog, int whichButton) { finish(); } })
-	 * .setNegativeButton("NO", new DialogInterface.OnClickListener() { public
-	 * void onClick(DialogInterface dialog, int whichButton) { } }).create(); }
-	 * return null; }
-	 */
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case 0:
+			return new AlertDialog.Builder(this)
+					.setMessage("Are you sure you want to Cancel?")
+					.setPositiveButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									finish();
+								}
+							})
+					.setNegativeButton("NO",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+								}
+							}).create();
+		}
+		return null;
+	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -125,7 +148,7 @@ public class WorkoutRoutineEdit extends Activity {
 		super.onPause();
 		if (DEBUG)
 			Log.v(TAG, "+ ON PAUSE +");
-		saveState();
+		// saveState();
 	}
 
 	@Override
@@ -163,6 +186,13 @@ public class WorkoutRoutineEdit extends Activity {
 				mDbAdapter.updateWorkout(mRowId, name, description);
 			}
 		}
+
+		Context context = getApplicationContext();
+		CharSequence text = "Your Workout Routine has been saved.";
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
 	}
 
 }
