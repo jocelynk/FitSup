@@ -10,7 +10,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.14"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:text="Date:" />
 
         <TextView
@@ -18,5 +18,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
     </LinearLayout>

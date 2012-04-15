@@ -16,4 +16,5 @@
     <string name="choose_exercise">Choose an Exercise.</string>
     <string name="no_records">You have no Records. Add Record from Menu.</string>
     <string name="menu_insert_records">Add Record</string>
+     <string name="choose_category">Choose a Category.</string>
 </resources>

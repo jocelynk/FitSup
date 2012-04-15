@@ -47,14 +47,14 @@ public final class R {
         public static final int tabs_workouts=0x7f020017;
     }
     public static final class id {
-        public static final int calendar=0x7f08001f;
+        public static final int calendar=0x7f080020;
         public static final int calendar_day_gridcell=0x7f080003;
-        public static final int calendarheader=0x7f08001e;
-        public static final int cancel=0x7f080016;
+        public static final int calendarheader=0x7f08001f;
+        public static final int cancel=0x7f080017;
         public static final int confirm=0x7f080002;
-        public static final int currentMonth=0x7f08001c;
+        public static final int currentMonth=0x7f08001d;
         public static final int date=0x7f08000f;
-        public static final int dateDisplay=0x7f080014;
+        public static final int dateDisplay=0x7f080015;
         public static final int description=0x7f080022;
         public static final int distance=0x7f080008;
         public static final int exercise_img=0x7f080006;
@@ -70,23 +70,23 @@ public final class R {
         public static final int mi=0x7f08000a;
         public static final int min=0x7f08000d;
         public static final int name=0x7f080021;
-        public static final int name1=0x7f080017;
-        public static final int nameview=0x7f080020;
-        public static final int nextMonth=0x7f08001d;
+        public static final int name1=0x7f080018;
+        public static final int nameview=0x7f080014;
+        public static final int nextMonth=0x7f08001e;
         public static final int num_events_per_day=0x7f080005;
-        public static final int pickDate=0x7f080015;
-        public static final int prevMonth=0x7f08001b;
+        public static final int pickDate=0x7f080016;
+        public static final int prevMonth=0x7f08001c;
         public static final int sec=0x7f08000e;
-        public static final int selectedDayMonthYear=0x7f08001a;
+        public static final int selectedDayMonthYear=0x7f08001b;
         public static final int set=0x7f080012;
         public static final int spinner1=0x7f080000;
         public static final int spinner2=0x7f080001;
         public static final int text1=0x7f080010;
-        public static final int textView6=0x7f080018;
+        public static final int textView6=0x7f080019;
         public static final int time=0x7f08000b;
         public static final int value=0x7f080009;
         public static final int value2=0x7f080013;
-        public static final int value3=0x7f080019;
+        public static final int value3=0x7f08001a;
     }
     public static final class layout {
         public static final int add_exercise_to_workout=0x7f030000;
@@ -120,6 +120,7 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f050001;
+        public static final int choose_category=0x7f05000f;
         public static final int choose_exercise=0x7f05000c;
         public static final int confirm=0x7f050009;
         public static final int description=0x7f050008;

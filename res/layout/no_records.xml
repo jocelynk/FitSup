@@ -10,6 +10,6 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageButton1"
         android:text="You have no records for this exercise on this date."
-        android:textSize="36px" />
+        android:textSize="24sp" />
 
 </LinearLayout>

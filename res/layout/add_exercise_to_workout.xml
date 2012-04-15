@@ -14,16 +14,19 @@
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-     <Spinner
+        android:layout_height="wrap_content"
+        android:prompt="@string/choose_category" />
+
+    <Spinner
         android:id="@+id/spinner2"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:prompt="@string/choose_exercise" />
 
     <Button
         android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm" />
-    
+
 </LinearLayout>

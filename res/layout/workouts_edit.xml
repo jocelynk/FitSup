@@ -25,7 +25,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:hint="Enter Workout Routine Name" />
+           android:inputType="text"
+           android:maxLength="30"
+            android:hint="Name" />
 
         <EditText
             android:id="@+id/description"
@@ -34,9 +36,10 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="top"
-            android:hint="Enter Description"
+            android:hint="Description"
             android:inputType="textMultiLine"
             android:lines="5"
+            android:maxLength="50"
             android:scrollbars="vertical" />
 
         <LinearLayout

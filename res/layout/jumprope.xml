@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageButton1"
-        android:textSize="48px"/>
+        android:textSize="36dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.14"
-            android:textSize="36px"
+            android:textSize="24sp"
             android:text="Date:" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="36px" />
+            android:textSize="24sp" />
     </LinearLayout>
 
 
@@ -65,20 +65,20 @@
             android:id="@+id/value"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:textSize="32px"
+            android:textSize="24sp"
             android:layout_below="@+id/value" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="32px"
+            android:textSize="24sp"
             android:text="Reps: " />
 
         <TextView
             android:id="@+id/value2"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:textSize="32px"
+            android:textSize="24sp"
             android:layout_below="@+id/value2" />
 
     </LinearLayout>
@@ -98,33 +98,33 @@
             android:layout_alignLeft="@+id/value"
             android:layout_below="@+id/value"
             android:paddingLeft="5dp"
-            android:textSize="32px"
+            android:textSize="24sp"
             android:text="Time: " />
 
         <TextView
             android:id="@+id/min"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:textSize="32px"
+            android:textSize="24sp"
             android:layout_below="@+id/distance" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="32px"
+            android:textSize="24sp"
             android:text="min " />
 
         <TextView
             android:id="@+id/sec"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:textSize="32px"
+            android:textSize="24sp"
             android:layout_below="@+id/distance" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="32px"
+            android:textSize="24sp"
             android:text="sec" />
     </LinearLayout>
 

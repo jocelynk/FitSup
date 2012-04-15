@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/exercise_img"
-        android:textSize="36dp" />
+        android:textSize="36sp" />
 
     <include layout="@layout/date" />
     
@@ -36,7 +36,7 @@
             android:layout_below="@+id/exercise_img"
             android:layout_marginLeft="14dp"
             android:text="Distance: "
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/value"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/distance"
             android:paddingRight="5dp"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/mi"
@@ -54,7 +54,7 @@
             android:layout_alignBottom="@+id/distance"
             android:layout_toRightOf="@+id/exercise_img"
             android:text="mi"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,7 +73,7 @@
             android:layout_below="@+id/value"
             android:paddingLeft="15dp"
             android:text="Time: "
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/hr"
@@ -81,14 +81,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/value"
             android:paddingRight="5dp"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="hr "
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/min"
@@ -96,14 +96,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/distance"
             android:paddingRight="5dp"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="min "
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/sec"
@@ -111,13 +111,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/distance"
             android:paddingRight="5dp"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="sec"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
     </LinearLayout>
 
 </RelativeLayout>
